@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <!-- MENÚ PRINCIPAL -->
+    <menuitem name="ACTIVOS" id="men_pri_act"/>
+    <menuitem name="INGRESAR BIEN" id="men_pri_bie" parent="men_pri_act"/>
+</odoo>

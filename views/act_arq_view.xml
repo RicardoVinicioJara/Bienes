@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+<odoo>
+
+
+    <!-- MENÚ SECUNDARIO -->
+    <menuitem name="MENU ACT_ARQ" id="men_sec_act_arq" parent="men_pri_act"/>
+
+
+    <!-- VISTA FORM: ARQUEOLOGIA -->
+    <record model="ir.ui.view" id="view_act_arq_arqueologia_form">
+        <field name="name">arqueologia.form</field>
+        <field name="model">act.arq.arqueologia</field>
+        <field name="arch" type="xml">
+            <form string="arqueologia">
+                <group col="4" colspan="2">
+                    <group colspan="2">
+
+                        <field name="marca" select="0"/>
+                        <field name="modelo" select="0"/>
+                        <field name="serie" select="0"/>
+                        
+                        <field name="nombre" select="2"/>
+                        <field name="ubicacion" select="0"/>
+                        <field name="precedencia" select="0"/>
+                        <field name="material_id" select="0"/>
+                        <field name="tenicnicaselb_id" select="0"/>
+                        <field name="cultura_id" select="0"/>
+                    </group>
+                    <group colspan="2">
+                        <field name="ancho" select="0"/>
+                        <field name="largo" select="0"/>
+                        <field name="marfologia_id" select="0"/>
+                        <field name="decoracion_id" select="0"/>
+                        <field name="porcetaje_integridad" select="0"/>
+                        <field name="porcentaje_conservacion" select="0"/>
+                        <field name="codigo" invisible="1" select="1"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: ARQUEOLOGIA -->
+
+    <!-- VISTA TREE: ARQUEOLOGIA -->
+    <record model="ir.ui.view" id="view_act_arq_arqueologia_tree">
+        <field name="name">arqueologia.tree</field>
+        <field name="model">act.arq.arqueologia</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="arqueologia">
+                <field name="codigo"/>
+                <field name="nombre"/>
+                <field name="ubicacion"/>
+                <field name="precedencia"/>
+                <field name="material_id"/>
+                <field name="cultura_id"/>
+                <field name="ancho"/>
+                <field name="largo"/>
+                <field name="marfologia_id"/>
+                <field name="tenicnicaselb_id"/>
+                <field name="decoracion_id"/>
+                <field name="porcetaje_integridad"/>
+                <field name="porcentaje_conservacion"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: ARQUEOLOGIA -->
+
+    <!-- VISTA PIVOT: ARQUEOLOGIA -->
+    <record model="ir.ui.view" id="view_act_arq_arqueologia_pivot">
+        <field name="name">arqueologia.tree</field>
+        <field name="model">act.arq.arqueologia</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="arqueologia">
+                <field name="codigo"/>
+                <field name="nombre"/>
+                <field name="ubicacion"/>
+                <field name="precedencia"/>
+                <field name="material_id"/>
+                <field name="cultura_id"/>
+                <field name="ancho"/>
+                <field name="largo"/>
+                <field name="marfologia_id"/>
+                <field name="tenicnicaselb_id"/>
+                <field name="decoracion_id"/>
+                <field name="porcetaje_integridad"/>
+                <field name="porcentaje_conservacion"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: ARQUEOLOGIA -->
+
+    <!-- MODELO: ARQUEOLOGIA -->
+    <record model="ir.actions.act_window" id="action_act_arq_arqueologia">
+        <field name="name">ARQUEOLOGIA</field>
+        <field name="res_model">act.arq.arqueologia</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: ARQUEOLOGIA -->
+
+    <!-- MENÚ SECUNDARIO: ARQUEOLOGIA
+    <menuitem name="ARQUEOLOGIA" id="menu_act_arq_arqueologia" action="action_act_arq_arqueologia" parent="men_sec_act_arq"/> -->
+
+    <!-- VISTA FORM: CULTURA -->
+    <record model="ir.ui.view" id="view_act_arq_cultura_form">
+        <field name="name">cultura.form</field>
+        <field name="model">act.arq.cultura</field>
+        <field name="arch" type="xml">
+            <form string="cultura">
+                <group col="4" colspan="2">
+                    <field name="cultura" select="2"/>
+                    <field name="decripcion" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: CULTURA -->
+
+    <!-- VISTA TREE: CULTURA -->
+    <record model="ir.ui.view" id="view_act_arq_cultura_tree">
+        <field name="name">cultura.tree</field>
+        <field name="model">act.arq.cultura</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="cultura">
+                <field name="codigo"/>
+                <field name="cultura"/>
+                <field name="decripcion"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: CULTURA -->
+
+    <!-- VISTA PIVOT: CULTURA -->
+    <record model="ir.ui.view" id="view_act_arq_cultura_pivot">
+        <field name="name">cultura.tree</field>
+        <field name="model">act.arq.cultura</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="cultura">
+                <field name="codigo"/>
+                <field name="cultura"/>
+                <field name="decripcion"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: CULTURA -->
+
+    <!-- MODELO: CULTURA -->
+    <record model="ir.actions.act_window" id="action_act_arq_cultura">
+        <field name="name">CULTURA</field>
+        <field name="res_model">act.arq.cultura</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: CULTURA -->
+
+    <!-- MENÚ SECUNDARIO: CULTURA
+    <menuitem name="CULTURA" id="menu_act_arq_cultura" action="action_act_arq_cultura" parent="men_sec_act_arq"/> -->
+
+    <!-- VISTA FORM: MARFOLOGIA -->
+    <record model="ir.ui.view" id="view_act_arq_marfologia_form">
+        <field name="name">marfologia.form</field>
+        <field name="model">act.arq.marfologia</field>
+        <field name="arch" type="xml">
+            <form string="marfologia">
+                <group col="4" colspan="2">
+                    <field name="marfologia" select="2"/>
+                    <field name="decripcion" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: MARFOLOGIA -->
+
+    <!-- VISTA TREE: MARFOLOGIA -->
+    <record model="ir.ui.view" id="view_act_arq_marfologia_tree">
+        <field name="name">marfologia.tree</field>
+        <field name="model">act.arq.marfologia</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="marfologia">
+                <field name="codigo"/>
+                <field name="marfologia"/>
+                <field name="decripcion"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: MARFOLOGIA -->
+
+    <!-- VISTA PIVOT: MARFOLOGIA -->
+    <record model="ir.ui.view" id="view_act_arq_marfologia_pivot">
+        <field name="name">marfologia.tree</field>
+        <field name="model">act.arq.marfologia</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="marfologia">
+                <field name="codigo"/>
+                <field name="marfologia"/>
+                <field name="decripcion"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: MARFOLOGIA -->
+
+    <!-- MODELO: MARFOLOGIA -->
+    <record model="ir.actions.act_window" id="action_act_arq_marfologia">
+        <field name="name">MARFOLOGIA</field>
+        <field name="res_model">act.arq.marfologia</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: MARFOLOGIA -->
+
+    <!-- MENÚ SECUNDARIO: MARFOLOGIA
+    <menuitem name="MARFOLOGIA" id="menu_act_arq_marfologia" action="action_act_arq_marfologia" parent="men_sec_act_arq"/> -->
+
+    <!-- VISTA FORM: TECNICASELABORACION -->
+    <record model="ir.ui.view" id="view_act_arq_tecnicaselaboracion_form">
+        <field name="name">tecnicaselaboracion.form</field>
+        <field name="model">act.arq.tecnicaselaboracion</field>
+        <field name="arch" type="xml">
+            <form string="tecnicaselaboracion">
+                <group col="4" colspan="2">
+
+                    <field name="tecnicas_elaboracion" select="2"/>
+                    <field name="decripcion" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: TECNICASELABORACION -->
+
+    <!-- VISTA TREE: TECNICASELABORACION -->
+    <record model="ir.ui.view" id="view_act_arq_tecnicaselaboracion_tree">
+        <field name="name">tecnicaselaboracion.tree</field>
+        <field name="model">act.arq.tecnicaselaboracion</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="tecnicaselaboracion">
+                <field name="codigo"/>
+                <field name="tecnicas_elaboracion"/>
+                <field name="decripcion"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: TECNICASELABORACION -->
+
+    <!-- VISTA PIVOT: TECNICASELABORACION -->
+    <record model="ir.ui.view" id="view_act_arq_tecnicaselaboracion_pivot">
+        <field name="name">tecnicaselaboracion.tree</field>
+        <field name="model">act.arq.tecnicaselaboracion</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="tecnicaselaboracion">
+                <field name="codigo"/>
+                <field name="tecnicas_elaboracion"/>
+                <field name="decripcion"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: TECNICASELABORACION -->
+
+    <!-- MODELO: TECNICASELABORACION -->
+    <record model="ir.actions.act_window" id="action_act_arq_tecnicaselaboracion">
+        <field name="name">TECNICASELABORACION</field>
+        <field name="res_model">act.arq.tecnicaselaboracion</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: TECNICASELABORACION -->
+
+    <!-- MENÚ SECUNDARIO: TECNICASELABORACION
+    <menuitem name="TECNICASELABORACION" id="menu_act_arq_tecnicaselaboracion" action="action_act_arq_tecnicaselaboracion" parent="men_sec_act_arq"/> -->
+
+</odoo>

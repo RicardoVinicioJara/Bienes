@@ -1,0 +1,267 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- MENÚ SECUNDARIO -->
+    <menuitem name="MENU ACT_VEH" id="men_sec_act_veh" parent="men_pri_act"/>
+
+
+    <!-- VISTA FORM: VEHICULOS -->
+    <record model="ir.ui.view" id="view_act_veh_vehiculos_form">
+        <field name="name">vehiculos.form</field>
+        <field name="model">act.veh.vehiculos</field>
+        <field name="arch" type="xml">
+            <form string="vehiculos">
+                <group col="4" colspan="2">
+                    <group colspan="2">
+                        <field name="marca" select="0"/>
+                        <field name="modelo" select="0"/>
+                        <field name="serie" select="0"/>
+                        <field name="tipo_vehiculo_id" select="2"/>
+                        <field name="clase_vehiculo_id" select="0"/>
+                        <field name="n_motor" select="0"/>
+                    </group>
+                    <group colspan="2">
+                        <field name="n_chasis" select="0"/>
+                        <field name="anio_fabricacion" select="0"/>
+                        <field name="placa" select="0"/>
+                        <field name="color_primerio" select="0"/>
+                        <field name="color_secundario" select="0"/>
+                        <field name="codigo" invisible="1"/>
+                        <field name="dato_icorrecto" invisible="1" />
+                    </group>
+                </group>
+                <script type="text/javascript">
+                    eventosValidacion();
+                </script>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- VISTA TREE: VEHICULOS -->
+    <record model="ir.ui.view" id="view_act_veh_vehiculos_tree">
+        <field name="name">vehiculos.tree</field>
+        <field name="model">act.veh.vehiculos</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="vehiculos" decoration-danger="dato_icorrecto == True">
+                <field name="marca" select="0"/>
+                <field name="modelo" select="0"/>
+                <field name="serie" select="0"/>
+                <field name="placa"/>
+                <field name="anio_fabricacion"/>
+                <field name="tipo_vehiculo_id"/>
+                <field name="clase_vehiculo_id"/>
+                <field name="n_motor"/>
+                <field name="n_chasis"/>
+                <field name="color_primerio"/>
+                <field name="color_secundario"/>
+                <field name="dato_icorrecto" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: VEHICULOS -->
+
+    <!-- VISTA PIVOT: VEHICULOS -->
+    <record model="ir.ui.view" id="view_act_veh_vehiculos_pivot">
+        <field name="name">vehiculos.tree</field>
+        <field name="model">act.veh.vehiculos</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="vehiculos">
+                <field name="codigo"/>
+                <field name="tipo_vehiculo_id"/>
+                <field name="clase_vehiculo_id"/>
+                <field name="n_motor"/>
+                <field name="n_chasis"/>
+                <field name="anio_fabricacion"/>
+                <field name="placa"/>
+                <field name="color_primerio"/>
+                <field name="color_secundario"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: VEHICULOS -->
+
+    <!-- MODELO: VEHICULOS -->
+    <record model="ir.actions.act_window" id="action_act_veh_vehiculos">
+        <field name="name">VEHICULOS</field>
+        <field name="res_model">act.veh.vehiculos</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: VEHICULOS -->
+
+    <!-- MENÚ SECUNDARIO: VEHICULOS
+    <menuitem name="VEHICULOS" id="menu_act_veh_vehiculos" action="action_act_veh_vehiculos" parent="men_sec_act_veh"/> -->
+
+    <!-- VISTA FORM: VEHICULOSCLASE -->
+    <record model="ir.ui.view" id="view_act_veh_vehiculosclase_form">
+        <field name="name">vehiculosclase.form</field>
+        <field name="model">act.veh.vehiculosclase</field>
+        <field name="arch" type="xml">
+            <form string="vehiculosclase">
+                <group col="4" colspan="2">
+                    <field name="tipo" select="2"/>
+                    <field name="descripcion" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: VEHICULOSCLASE -->
+
+    <!-- VISTA TREE: VEHICULOSCLASE -->
+    <record model="ir.ui.view" id="view_act_veh_vehiculosclase_tree">
+        <field name="name">vehiculosclase.tree</field>
+        <field name="model">act.veh.vehiculosclase</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="vehiculosclase" editable="top">
+                <field name="codigo"/>
+                <field name="tipo"/>
+                <field name="descripcion"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: VEHICULOSCLASE -->
+
+    <!-- VISTA PIVOT: VEHICULOSCLASE -->
+    <record model="ir.ui.view" id="view_act_veh_vehiculosclase_pivot">
+        <field name="name">vehiculosclase.tree</field>
+        <field name="model">act.veh.vehiculosclase</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="vehiculosclase">
+                <field name="codigo"/>
+                <field name="tipo"/>
+                <field name="descripcion"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: VEHICULOSCLASE -->
+
+    <!-- MODELO: VEHICULOSCLASE -->
+    <record model="ir.actions.act_window" id="action_act_veh_vehiculosclase">
+        <field name="name">VEHICULOSCLASE</field>
+        <field name="res_model">act.veh.vehiculosclase</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: VEHICULOSCLASE -->
+
+    <!-- MENÚ SECUNDARIO: VEHICULOSCLASE
+    <menuitem name="VEHICULOSCLASE" id="menu_act_veh_vehiculosclase" action="action_act_veh_vehiculosclase" parent="men_sec_act_veh"/> -->
+
+    <!-- VISTA FORM: VEHICULOSTIPO -->
+    <record model="ir.ui.view" id="view_act_veh_vehiculostipo_form">
+        <field name="name">vehiculostipo.form</field>
+        <field name="model">act.veh.vehiculostipo</field>
+        <field name="arch" type="xml">
+            <form string="vehiculostipo">
+                <group col="4" colspan="2">
+                    <field name="tipo" select="2"/>
+                    <field name="descripcion" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: VEHICULOSTIPO -->
+
+    <!-- VISTA TREE: VEHICULOSTIPO -->
+    <record model="ir.ui.view" id="view_act_veh_vehiculostipo_tree">
+        <field name="name">vehiculostipo.tree</field>
+        <field name="model">act.veh.vehiculostipo</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="vehiculostipo" editable="top">
+                <field name="codigo"/>
+                <field name="tipo"/>
+                <field name="descripcion"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: VEHICULOSTIPO -->
+
+    <!-- VISTA PIVOT: VEHICULOSTIPO -->
+    <record model="ir.ui.view" id="view_act_veh_vehiculostipo_pivot">
+        <field name="name">vehiculostipo.tree</field>
+        <field name="model">act.veh.vehiculostipo</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="vehiculostipo">
+                <field name="codigo"/>
+                <field name="tipo"/>
+                <field name="descripcion"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: VEHICULOSTIPO -->
+
+    <!-- MODELO: VEHICULOSTIPO -->
+    <record model="ir.actions.act_window" id="action_act_veh_vehiculostipo">
+        <field name="name">VEHICULOSTIPO</field>
+        <field name="res_model">act.veh.vehiculostipo</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: VEHICULOSTIPO -->
+
+    <!-- MENÚ SECUNDARIO: VEHICULOSTIPO
+    <menuitem name="VEHICULOSTIPO" id="menu_act_veh_vehiculostipo" action="action_act_veh_vehiculostipo" parent="men_sec_act_veh"/> -->
+
+    <!-- VISTA FORM: VEHICULOSTIPO -->
+    <record model="ir.ui.view" id="view_act_veh_vehiculostipo_form">
+        <field name="name">vehiculostipo.form</field>
+        <field name="model">act.veh.vehiculostipo</field>
+        <field name="arch" type="xml">
+            <form string="vehiculostipo">
+                <group col="4" colspan="2">
+                    <field name="tipo" select="2"/>
+                    <field name="descripcion" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: VEHICULOSTIPO -->
+
+    <!-- VISTA TREE: VEHICULOSTIPO -->
+    <record model="ir.ui.view" id="view_act_veh_vehiculostipo_tree">
+        <field name="name">vehiculostipo.tree</field>
+        <field name="model">act.veh.vehiculostipo</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="vehiculostipo" editable="top">
+                <field name="codigo"/>
+                <field name="tipo"/>
+                <field name="descripcion"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: VEHICULOSTIPO -->
+
+    <!-- VISTA PIVOT: VEHICULOSTIPO -->
+    <record model="ir.ui.view" id="view_act_veh_vehiculostipo_pivot">
+        <field name="name">vehiculostipo.tree</field>
+        <field name="model">act.veh.vehiculostipo</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="vehiculostipo">
+                <field name="codigo"/>
+                <field name="tipo"/>
+                <field name="descripcion"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: VEHICULOSTIPO -->
+
+    <!-- MODELO: VEHICULOSTIPO -->
+    <record model="ir.actions.act_window" id="action_act_veh_vehiculostipo">
+        <field name="name">VEHICULOSTIPO</field>
+        <field name="res_model">act.veh.vehiculostipo</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: VEHICULOSTIPO -->
+
+    <!-- MENÚ SECUNDARIO: VEHICULOSTIPO
+    <menuitem name="VEHICULOSTIPO" id="menu_act_veh_vehiculostipo" action="action_act_veh_vehiculostipo" parent="men_sec_act_veh"/> -->
+
+</odoo>

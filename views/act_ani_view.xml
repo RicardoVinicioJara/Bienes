@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<odoo>
+
+
+    <!-- MENÚ SECUNDARIO -->
+    <menuitem name="MENU ACT_ANI" id="men_sec_act_ani" parent="men_pri_act"/>
+
+
+    <!-- VISTA FORM: ANIMALVIVO -->
+    <record model="ir.ui.view" id="view_act_ani_animalvivo_form">
+        <field name="name">animalvivo.form</field>
+        <field name="model">act.ani.animalvivo</field>
+        <field name="arch" type="xml">
+            <form string="animalvivo">
+                <group col="4" colspan="2">
+                    <group colspan="2">
+                        <field name="sexo" select="2"/>
+                        <field name="edad" select="0"/>
+                        <field name="num_arete" select="0"/>
+                        <field name="codigo" invisible="1" select="1"/>
+
+                        <field name="marca"   select="0" />
+                        <field name="modelo" select="0"/>
+                        <field name="serie" select="0"/>
+                    </group>
+                    <group colspan="2">
+                        <field name="fecha_nacimineto" select="0"/>
+                        <field name="peso" select="0"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: ANIMALVIVO -->
+
+    <!-- VISTA TREE: ANIMALVIVO -->
+    <record model="ir.ui.view" id="view_act_ani_animalvivo_tree">
+        <field name="name">animalvivo.tree</field>
+        <field name="model">act.ani.animalvivo</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="animalvivo">
+                <field name="codigo"/>
+                <field name="sexo"/>
+                <field name="fecha_nacimineto"/>
+                <field name="edad"/>
+                <field name="peso"/>
+                <field name="num_arete"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: ANIMALVIVO -->
+
+    <!-- VISTA PIVOT: ANIMALVIVO -->
+    <record model="ir.ui.view" id="view_act_ani_animalvivo_pivot">
+        <field name="name">animalvivo.tree</field>
+        <field name="model">act.ani.animalvivo</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="animalvivo">
+                <field name="codigo"/>
+                <field name="sexo"/>
+                <field name="fecha_nacimineto"/>
+                <field name="edad"/>
+                <field name="peso"/>
+                <field name="num_arete"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: ANIMALVIVO -->
+
+    <!-- MODELO: ANIMALVIVO -->
+    <record model="ir.actions.act_window" id="action_act_ani_animalvivo">
+        <field name="name">ANIMALVIVO</field>
+        <field name="res_model">act.ani.animalvivo</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: ANIMALVIVO -->
+
+    <!-- MENÚ SECUNDARIO: ANIMALVIVO
+    <menuitem name="ANIMALVIVO" id="menu_act_ani_animalvivo" action="action_act_ani_animalvivo" parent="men_sec_act_ani"/> -->
+
+</odoo>

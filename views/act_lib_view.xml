@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<odoo>
+
+
+    <!-- MENÚ SECUNDARIO -->
+    <menuitem name="MENU ACT_LIB" id="men_sec_act_lib" parent="men_pri_act"/>
+
+
+    <!-- VISTA FORM: LIBROSCOLECCIONES -->
+    <record model="ir.ui.view" id="view_act_lib_libroscolecciones_form">
+        <field name="name">libroscolecciones.form</field>
+        <field name="model">act.lib.libroscolecciones</field>
+        <field name="arch" type="xml">
+            <form string="libroscolecciones">
+                <group col="4" colspan="2">
+
+                    <field name="marca" select="0"/>
+                    <field name="modelo" select="0"/>
+                    <field name="serie" select="0"/>
+
+
+                    <field name="titulo" select="2"/>
+                    <field name="autor_id" select="0"/>
+                    <field name="editorial_id" select="0"/>
+                    <field name="fecha_edicion" select="0"/>
+                    <field name="num_edicion" select="0"/>
+                    <field name="clasifiacion_biografia" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: LIBROSCOLECCIONES -->
+
+    <!-- VISTA TREE: LIBROSCOLECCIONES -->
+    <record model="ir.ui.view" id="view_act_lib_libroscolecciones_tree">
+        <field name="name">libroscolecciones.tree</field>
+        <field name="model">act.lib.libroscolecciones</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="libroscolecciones">
+                <field name="codigo"/>
+                <field name="titulo"/>
+                <field name="autor_id"/>
+                <field name="editorial_id"/>
+                <field name="fecha_edicion"/>
+                <field name="num_edicion"/>
+                <field name="clasifiacion_biografia"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: LIBROSCOLECCIONES -->
+
+    <!-- VISTA PIVOT: LIBROSCOLECCIONES -->
+    <record model="ir.ui.view" id="view_act_lib_libroscolecciones_pivot">
+        <field name="name">libroscolecciones.tree</field>
+        <field name="model">act.lib.libroscolecciones</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="libroscolecciones">
+                <field name="codigo"/>
+                <field name="titulo"/>
+                <field name="autor_id"/>
+                <field name="editorial_id"/>
+                <field name="fecha_edicion"/>
+                <field name="num_edicion"/>
+                <field name="clasifiacion_biografia"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: LIBROSCOLECCIONES -->
+
+    <!-- MODELO: LIBROSCOLECCIONES -->
+    <record model="ir.actions.act_window" id="action_act_lib_libroscolecciones">
+        <field name="name">LIBROSCOLECCIONES</field>
+        <field name="res_model">act.lib.libroscolecciones</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: LIBROSCOLECCIONES -->
+
+    <!-- MENÚ SECUNDARIO: LIBROSCOLECCIONES
+    <menuitem name="LIBROSCOLECCIONES" id="menu_act_lib_libroscolecciones" action="action_act_lib_libroscolecciones" parent="men_sec_act_lib"/> -->
+
+    <!-- VISTA FORM: EDITORIAL -->
+    <record model="ir.ui.view" id="view_act_lib_editorial_form">
+        <field name="name">editorial.form</field>
+        <field name="model">act.lib.editorial</field>
+        <field name="arch" type="xml">
+            <form string="editorial">
+                <group col="4" colspan="2">
+                    <field name="nombre" select="2"/>
+                    <field name="datelles" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: EDITORIAL -->
+
+    <!-- VISTA TREE: EDITORIAL -->
+    <record model="ir.ui.view" id="view_act_lib_editorial_tree">
+        <field name="name">editorial.tree</field>
+        <field name="model">act.lib.editorial</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="editorial">
+                <field name="codigo"/>
+                <field name="nombre"/>
+                <field name="datelles"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: EDITORIAL -->
+
+    <!-- VISTA PIVOT: EDITORIAL -->
+    <record model="ir.ui.view" id="view_act_lib_editorial_pivot">
+        <field name="name">editorial.tree</field>
+        <field name="model">act.lib.editorial</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="editorial">
+                <field name="codigo"/>
+                <field name="nombre"/>
+                <field name="datelles"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: EDITORIAL -->
+
+    <!-- MODELO: EDITORIAL -->
+    <record model="ir.actions.act_window" id="action_act_lib_editorial">
+        <field name="name">EDITORIAL</field>
+        <field name="res_model">act.lib.editorial</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: EDITORIAL -->
+
+    <!-- MENÚ SECUNDARIO: EDITORIAL
+    <menuitem name="EDITORIAL" id="menu_act_lib_editorial" action="action_act_lib_editorial" parent="men_sec_act_lib"/> -->
+
+    <!-- VISTA FORM: CLASIFIACIONBIOGRAFIA -->
+    <record model="ir.ui.view" id="view_act_lib_clasifiacionbiografia_form">
+        <field name="name">clasifiacionbiografia.form</field>
+        <field name="model">act.lib.clasifiacionbiografia</field>
+        <field name="arch" type="xml">
+            <form string="clasifiacionbiografia">
+                <group col="4" colspan="2">
+                    <field name="clasificacion" select="2"/>
+                    <field name="Bibliografica" select="0"/>
+                    <field name="detales" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: CLASIFIACIONBIOGRAFIA -->
+
+    <!-- VISTA TREE: CLASIFIACIONBIOGRAFIA -->
+    <record model="ir.ui.view" id="view_act_lib_clasifiacionbiografia_tree">
+        <field name="name">clasifiacionbiografia.tree</field>
+        <field name="model">act.lib.clasifiacionbiografia</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="clasifiacionbiografia">
+                <field name="codigo"/>
+                <field name="clasificacion"/>
+                <field name="Bibliografica"/>
+                <field name="detales"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: CLASIFIACIONBIOGRAFIA -->
+
+    <!-- VISTA PIVOT: CLASIFIACIONBIOGRAFIA -->
+    <record model="ir.ui.view" id="view_act_lib_clasifiacionbiografia_pivot">
+        <field name="name">clasifiacionbiografia.tree</field>
+        <field name="model">act.lib.clasifiacionbiografia</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="clasifiacionbiografia">
+                <field name="codigo"/>
+                <field name="clasificacion"/>
+                <field name="Bibliografica"/>
+                <field name="detales"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: CLASIFIACIONBIOGRAFIA -->
+
+    <!-- MODELO: CLASIFIACIONBIOGRAFIA -->
+    <record model="ir.actions.act_window" id="action_act_lib_clasifiacionbiografia">
+        <field name="name">CLASIFIACIONBIOGRAFIA</field>
+        <field name="res_model">act.lib.clasifiacionbiografia</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: CLASIFIACIONBIOGRAFIA -->
+
+    <!-- MENÚ SECUNDARIO: CLASIFIACIONBIOGRAFIA
+    <menuitem name="CLASIFIACIONBIOGRAFIA" id="menu_act_lib_clasifiacionbiografia" action="action_act_lib_clasifiacionbiografia" parent="men_sec_act_lib"/> -->
+
+</odoo>

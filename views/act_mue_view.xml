@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<odoo>
+
+
+    <!-- MENÚ SECUNDARIO -->
+    <menuitem name="MENU ACT_MUE" id="men_sec_act_mue" parent="men_pri_act"/>
+
+
+    <!-- VISTA FORM: BIENESMUEBLES -->
+    <record model="ir.ui.view" id="view_act_mue_bienesmuebles_form">
+        <field name="name">bienesmuebles.form</field>
+        <field name="model">act.mue.bienesmuebles</field>
+        <field name="arch" type="xml">
+            <form string="bienesmuebles">
+                <group col="4" colspan="2">
+                    <group colspan="2">
+                        <field name="marca" select="0"/>
+                        <field name="modelo" select="0"/>
+                        <field name="serie" select="0"/>
+                        <field name="material_id" select="2"/>
+                    </group>
+                    <group colspan="2">
+                        <field name="color" select="0"/>
+                        <field name="largo" select="0"/>
+                        <field name="ancho" select="0"/>
+                        <field name="codigo" invisible="1" select="1"/>
+                        <field name="dato_icorrecto" invisible="1"/>
+                    </group>
+                </group>
+                <script type="text/javascript">
+                    validar_eventos_muebles();
+                </script>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: BIENESMUEBLES -->
+
+    <!-- VISTA TREE: BIENESMUEBLES -->
+    <record model="ir.ui.view" id="view_act_mue_bienesmuebles_tree">
+        <field name="name">bienesmuebles.tree</field>
+        <field name="model">act.mue.bienesmuebles</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="bienesmuebles" decoration-danger="dato_icorrecto == True">
+                <field name="codigo" invisible="1"/>
+                <field name="marca" select="0"/>
+                <field name="modelo" select="0"/>
+                <field name="serie" select="0"/>
+                <field name="material_id"/>
+                <field name="color"/>
+                <field name="largo"/>
+                <field name="ancho"/>
+                <field name="dato_icorrecto" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: BIENESMUEBLES -->
+
+    <!-- VISTA PIVOT: BIENESMUEBLES -->
+    <record model="ir.ui.view" id="view_act_mue_bienesmuebles_pivot">
+        <field name="name">bienesmuebles.tree</field>
+        <field name="model">act.mue.bienesmuebles</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="bienesmuebles">
+                <field name="codigo"/>
+                <field name="material_id"/>
+                <field name="color"/>
+                <field name="largo"/>
+                <field name="ancho"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: BIENESMUEBLES -->
+
+    <!-- MODELO: BIENESMUEBLES -->
+    <record model="ir.actions.act_window" id="action_act_mue_bienesmuebles">
+        <field name="name">BIENESMUEBLES</field>
+        <field name="res_model">act.mue.bienesmuebles</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: BIENESMUEBLES -->
+
+    <!-- MENÚ SECUNDARIO: BIENESMUEBLES
+    <menuitem name="BIENESMUEBLES" id="menu_act_mue_bienesmuebles" action="action_act_mue_bienesmuebles" parent="men_sec_act_mue"/> -->
+
+    <!-- VISTA FORM: MATERIAL -->
+    <record model="ir.ui.view" id="view_act_mue_material_form">
+        <field name="name">material.form</field>
+        <field name="model">act.mue.material</field>
+        <field name="arch" type="xml">
+            <form string="material">
+                <group col="4" colspan="2">
+                    <field name="material" select="2"/>
+                    <field name="descripcion" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: MATERIAL -->
+
+    <!-- VISTA TREE: MATERIAL -->
+    <record model="ir.ui.view" id="view_act_mue_material_tree">
+        <field name="name">material.tree</field>
+        <field name="model">act.mue.material</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="material" editable="top">
+                <field name="codigo"/>
+                <field name="material"/>
+                <field name="descripcion"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: MATERIAL -->
+
+    <!-- VISTA PIVOT: MATERIAL -->
+    <record model="ir.ui.view" id="view_act_mue_material_pivot">
+        <field name="name">material.tree</field>
+        <field name="model">act.mue.material</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="material">
+                <field name="codigo"/>
+                <field name="material"/>
+                <field name="descripcion"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: MATERIAL -->
+
+    <!-- MODELO: MATERIAL -->
+    <record model="ir.actions.act_window" id="action_act_mue_material">
+        <field name="name">MATERIAL</field>
+        <field name="res_model">act.mue.material</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: MATERIAL -->
+
+    <!-- MENÚ SECUNDARIO: MATERIAL
+    <menuitem name="MATERIAL" id="menu_act_mue_material" action="action_act_mue_material" parent="men_sec_act_mue"/> -->
+
+</odoo>

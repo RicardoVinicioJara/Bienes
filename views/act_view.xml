@@ -1,0 +1,733 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <template id="assets_backend" name="helpdesk assets" inherit_id="web.assets_backend">
+        <xpath expr='.' position="inside">
+            <link rel="stylesheet" href="/Bienes/static/src/less/toastify.css"/>
+            <script type="text/javascript" src="/Bienes/static/src/js/toastify.js"></script>
+            <script type="text/javascript" src="/Bienes/static/src/js/Bienes.js"></script>
+        </xpath>
+    </template>
+
+    <!-- MENÚ SECUNDARIO -->
+    <menuitem name="MENU BIENES" id="men_sec_act" parent="men_pri_act"/>
+
+
+    <!-- VISTA FORM: BODEGA -->
+    <record model="ir.ui.view" id="view_act_bodega_form">
+        <field name="name">bodega.form</field>
+        <field name="model">act.bodega</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="bodega">
+                <sheet>
+                    <group>
+                        <center>
+                            <table style="width:70%">
+                                <tr>
+                                    <th>CODIGO</th>
+                                    <td>
+                                        <field name="codigo"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>TIPO DE BODEGA</th>
+                                    <td>
+                                        <field name="tipo"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>NATURALEZA</th>
+                                    <th>
+                                        <field name="naturaleza"/>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>DETALLE</th>
+                                    <td>
+                                        <field name="Denominacion"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>CENTRO GESTOR</th>
+                                    <td>
+                                        <field name="uni_operativa_id"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>NUMERO DE BODEGA</th>
+                                    <td>
+                                        <field name="noBodega"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </center>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: BODEGA -->
+
+    <!-- VISTA TREE: BODEGA -->
+    <record model="ir.ui.view" id="view_act_bodega_tree">
+        <field name="name">bodega.tree</field>
+        <field name="model">act.bodega</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="bodega">
+                <field name="codigo"/>
+                <field name="uni_operativa_id" options="{'no_open': True,'no_create':True,'no_create_edit':True}"/>
+                <field name="tipo"/>
+                <field name="naturaleza"/>
+                <field name="noBodega"/>
+                <field name="Denominacion"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: BODEGA -->
+
+    <!-- VISTA PIVOT: BODEGA -->
+    <record model="ir.ui.view" id="view_act_bodega_pivot">
+        <field name="name">bodega.tree</field>
+        <field name="model">act.bodega</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="bodega">
+                <field name="codigo"/>
+                <field name="noBodega"/>
+                <field name="uni_operativa_id" options="{'no_open': True,'no_create':True,'no_create_edit':True}"/>
+                <field name="Denominacion"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: BODEGA -->
+
+    <!-- MODELO: BODEGA -->
+    <record model="ir.actions.act_window" id="action_act_bodega">
+        <field name="name">BODEGA</field>
+        <field name="res_model">act.bodega</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: BODEGA -->
+
+    <!-- MENÚ SECUNDARIO: BODEGA -->
+    <menuitem name="BODEGA" id="menu_act_bodega" action="action_act_bodega" parent="men_sec_act"/>
+
+    <!-- VISTA FORM: VIDAUTIL -->
+    <record model="ir.ui.view" id="view_act_vidautil_form">
+        <field name="name">vidautil.form</field>
+        <field name="model">act.vidautil</field>
+        <field name="arch" type="xml">
+            <form string="vidautil">
+                <group col="4" colspan="2">
+                    <field name="tipo" select="2"/>
+                    <field name="adm_proy_prog" select="0"/>
+                    <field name="produccion" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: VIDAUTIL -->
+
+    <!-- VISTA TREE: VIDAUTIL -->
+    <record model="ir.ui.view" id="view_act_vidautil_tree">
+        <field name="name">vidautil.tree</field>
+        <field name="model">act.vidautil</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="vidautil" editable="top">
+                <field name="codigo"/>
+                <field name="tipo"/>
+                <field name="adm_proy_prog"/>
+                <field name="produccion"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: VIDAUTIL -->
+
+    <!-- VISTA PIVOT: VIDAUTIL -->
+    <record model="ir.ui.view" id="view_act_vidautil_pivot">
+        <field name="name">vidautil.tree</field>
+        <field name="model">act.vidautil</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="vidautil">
+                <field name="codigo"/>
+                <field name="tipo"/>
+                <field name="adm_proy_prog"/>
+                <field name="produccion"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: VIDAUTIL -->
+
+
+    <!-- MODELO: VIDAUTIL -->
+    <record model="ir.actions.act_window" id="action_act_vidautil">
+        <field name="name">VIDAUTIL</field>
+        <field name="res_model">act.vidautil</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: VIDAUTIL -->
+
+    <!-- MENÚ SECUNDARIO: VIDAUTIL -->
+    <menuitem name="VIDA UTIL" id="menu_act_vidautil" action="action_act_vidautil" parent="men_sec_act"/>
+
+    <!-- VISTA FORM: CABECERA -->
+
+    <record model="ir.ui.view" id="view_act_cabacera_form">
+        <field name="name">cabacera.form</field>
+        <field name="model">act.cabacera</field>
+        <field name="arch" type="xml">
+            <form string="cabacera">
+                <sheet>
+                    <div class="card">
+                        <div class="card-header text-center o_horizontal_separator">
+                            Entidad
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-center">
+                                <div class="col-5 text-center">
+                                    <field name="codigo" select="0" colspan="4"/>
+                                    <div class="dropdown-divider"></div>
+                                    <field name="item_padre" style="width: 100%"
+                                           options="{'no_quick_create':True, 'no_create_edit':True, 'no_open': True}"
+                                           force_save="1" select="1"
+                                           placeholder="Item  Categoria"/>
+                                    <div class="dropdown-divider"></div>
+                                    <field name="item_hijo" domain="[('item_padre_id', '=', item_padre)]"
+                                           style="width: 100%"
+                                           options="{'no_quick_create':True, 'no_create_edit':True, 'no_open': True}"
+                                           attrs="{'invisible': [('item_padre', '=', False)]}"
+                                           force_save="1" select="1"
+                                           placeholder="Item Sub Categoria"/>
+                                    <field name="tipo_herencia_item"
+                                           attrs="{'invisible': [('tipo_herencia', 'in', ['1','2','3','4','5','9'])], 'required':[('tipo_herencia', 'in', ['6','7','8'])]}"
+                                           select="0"/>
+                                    <field name="valor_mostrar" invisible="1" select="0"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" attrs="{'invisible': [('item_hijo', '=', False)]}">
+                        <div class="card-header text-center o_horizontal_separator">
+                            Origen del Bien
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-center">
+                                <div class="col-7" style="padding: 0">
+                                    <group col="2" colspan="4">
+                                        <field name="compra_id"
+                                               options="{'no_quick_create':True,'no_create_edit':True,'no_open': True}"
+                                               attrs="{'invisible': [('item_hijo', '=', False)]}" select="0"/>
+
+                                        <field name="producto_id"
+                                               options="{'no_quick_create':True,'no_create_edit':True,'no_open': True}"
+                                               attrs="{'invisible': [('compra_id', '=', False)]}"/>
+
+                                        <field name="certificado_id"
+                                               options="{'no_quick_create':True,'no_create_edit':True,'no_open': True}"
+                                               attrs="{'invisible': 1}"/>
+                                    </group>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <center attrs="{'invisible': [('producto_id', '=', False)]}">
+                        <br></br>
+                        <h3 class="o_horizontal_separator">INFORMACIÓN BÁSICA DEL BIEN</h3>
+                    </center>
+                    <div class="card" attrs="{'invisible': [('producto_id', '=', False)]}">
+                        <div class="card-header o_horizontal_separator">
+                            Bodega
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-center">
+                                <div class="col-7" style="padding: 0">
+                                    <group col="2" colspan="4">
+                                        <field name="bodega_id" select="0"/>
+                                        <field name="bodega_cod" select="0"/>
+                                        <field name="bodega_descripcion" select="0"/>
+                                        <field name="bodego_ubicacion" select="0"/>
+                                    </group>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" attrs="{'invisible': [('bodega_id', '=', False)]}">
+                        <div class="card-body">
+                            <div class="row justify-content-center">
+                                <div class="col-7" style="padding: 0">
+                                    <group col="2" colspan="4">
+                                        <field name="tipo_activo" select="0" force_save="1"
+                                               attrs="{'invisible': [('bodega_id', '=', False)]}"/>
+                                        <field name="fecha_ingreso" select="0"
+                                               options="{'datepicker':{'maxDate': 'now'}}"
+                                               attrs="{'invisible': [('bodega_id', '=', False)]}"/>
+                                        <field name="forma_ingreso" select="0"
+                                               attrs="{'invisible': [('fecha_ingreso', '=', False)]}"/>
+
+                                        <field name="codigo_bien_padre" select="0"
+                                               attrs="{'invisible': [('fecha_ingreso', '=', False)]}"/>
+                                        <field name="producto_des" select="0"
+                                               attrs="{'invisible': [('fecha_ingreso', '=', False)]}"/>
+                                        <field name="producto_codigo" select="0"
+                                               attrs="{'invisible': [('fecha_ingreso', '=', False)]}"/>
+                                        <field name="descripcion"
+                                               attrs="{'invisible': [('fecha_ingreso', '=', False)]}"/>
+                                        <field name="cantidad" select="0"
+                                               attrs="{'invisible': [('fecha_ingreso', '=', False)], 'readonly':True}"
+                                               force_save="1"/>
+
+                                        <field name="org_ingreso" select="0"
+                                               attrs="{'invisible': [('fecha_ingreso', '=', False)]}"/>
+                                        <field name="tipo_respaldo_id" select="0"
+                                               attrs="{'invisible': [('org_ingreso', '=', False)]}"/>
+                                        <field name="clase_respaldo_id" select="0"
+                                               attrs="{'invisible': [('tipo_respaldo_id', '=', False)]}"/>
+                                        <field name="tip_comprobante" select="0"
+                                               attrs="{'invisible': [('clase_respaldo_id', '=', False)]}"/>
+                                        <field name="fecha_comprobante" select="0"
+                                               attrs="{'invisible': [('clase_respaldo_id', '=', False)]}"/>
+                                        <field name="codigo_actual" select="0"
+                                               attrs="{'invisible': [('clase_respaldo_id', '=', False)]}"/>
+                                        <field name="estado"
+                                               attrs="{'readonly':[('tip_comprobante','!=','O')], 'invisible': [('clase_respaldo_id', '=', False)]}"
+                                               select="0"/>
+
+                                        <field name="producto_costo" select="0"
+                                               attrs="{'invisible': [('clase_respaldo_id', '=', False)]}"/>
+
+                                        <field name="depreciacion" select="0" force_save="1"
+                                               attrs="{'invisible': [('clase_respaldo_id', '=', False)]}"/>
+                                    </group>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" attrs="{'invisible': [('clase_respaldo_id', '=', False)]}">
+                        <div class="card-header o_horizontal_separator">
+                            Custodio
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-center">
+                                <div class="col-7" style="padding: 0">
+                                    <group col="2" colspan="4">
+                                        <field name="empleado_id"
+                                               options="{'no_quick_create':True,'no_create_edit':True,'no_open': True}"
+                                               attrs="{'invisible': [('clase_respaldo_id', '=', False)]}"/>
+                                        <field name="empleado_identificacion"
+                                               attrs="{'invisible': [('clase_respaldo_id', '=', False)]}"/>
+                                        <field name="empleado_nombre"
+                                               attrs="{'invisible': [('clase_respaldo_id', '=', False)]}"/>
+                                        <field name="empleado_apellido"
+                                               attrs="{'invisible': [('clase_respaldo_id', '=', False)]}"/>
+                                        <field name="empleado_ubicacion"
+                                               attrs="{'invisible': [('clase_respaldo_id', '=', False)]}"/>
+                                    </group>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" attrs="{'invisible': [('empleado_id', '=', False)]}">
+                        <div class="card-header o_horizontal_separator">
+                            DETALLE DE INFORMACIÓN PRESUPUESTARIA
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-center">
+                                <div class="col-7" style="padding: 0">
+                                    <group col="2" colspan="4">
+                                        <field name="partida_presupuestaria"
+                                               attrs="{'invisible': [('empleado_id', '=', False)]}"/>
+                                        <field name="item_prespuestario"
+                                               attrs="{'invisible': [('empleado_id', '=', False)]}"/>
+                                        <field name="codigo_proyecto"
+                                               attrs="{'invisible': [('empleado_id', '=', False)]}"/>
+                                        <field name="cuenta_contable"
+                                               attrs="{'invisible': [('empleado_id', '=', False)]}"/>
+                                    </group>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" attrs="{'invisible': [('valor_mostrar', '&lt;', 5)]}">
+                        <div class="card-header o_horizontal_separator">
+                            DETALLE DE INFORMACIÓN FINANCIERA
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-center">
+                                <div class="col-7" style="padding: 0">
+                                    <group col="2" colspan="4">
+                                        <field name="valor_contable" select="0"
+                                               attrs="{'readonly': [('org_ingreso', '=', 'C')]}"
+                                               force_save="1"/>
+                                        <field name="valor_residual" select="0"
+                                               attrs="{'readonly': [('org_ingreso', '=', 'C')], 'invisible': [('depreciacion', '=', 'N')]}"
+                                               force_save="1"/>
+                                        <field name="valor_libros" select="0"
+                                               attrs="{'readonly': [('org_ingreso', '=', 'C')]}"
+                                               force_save="1"/>
+                                        <field name="valor_dep_acumulada" select="0"
+                                               attrs="{'readonly': [('org_ingreso', '=', 'C')]}"
+                                               force_save="1"/>
+                                    </group>
+                                </div>
+                                <div class="col-7" style="padding: 0">
+                                    <div class="row justify-content-center">
+                                        <div class="col-5" style="padding: 0">
+                                            <div class="dropdown-divider"></div>
+                                            <group col="2" colspan="4"
+                                                   attrs="{'invisible': ['|',('depreciacion', '=', 'N')]}">
+                                                <field name="fecha_u_depreciacion" select="0"
+                                                       attrs="{'required':[('depreciacion','=','S')], 'readonly':[('org_ingreso','==','C')]}"
+                                                       options="{'datepicker':{'maxDate': 'now'}}" force_save="1"/>
+                                            </group>
+                                        </div>
+                                        <div class="col-7" style="padding: 0">
+                                            <div class="dropdown-divider"></div>
+                                            <group col="2" colspan="4"
+                                                   attrs="{'invisible': ['|',('depreciacion', '=', 'N')]}">
+                                                <field name="vida_util_id"
+                                                       attrs="{'invisible': [('depreciacion', '=', 'N')]}"
+                                                       force_save="1"/>
+                                                <field name="vida_anios" select="0" force_save="1"/>
+                                                <field name="vida_util_num" select="0"
+                                                       attrs="{'invisible': ['|',('vida_anios', '!=', 'UTPE*')]}"
+                                                       force_save="1"/>
+                                            </group>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-7" style="padding: 0">
+                                    <p class="text-danger"
+                                       attrs="{'invisible': [('duplicacion_datos', '=', False)]}">
+                                        Estos valores seran divididos por el numero de bienes ingresados</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" attrs="{'invisible': [('valor_mostrar', '&lt;', 6)]}">
+                        <div class="card-header o_horizontal_separator"
+                             attrs="{'invisible': [('cantidad', '&lt;', 2)]}">
+                            <div class="row justify-content-center" style="margin-bottom: -2%; margin-top: -2%;">
+                                <div class="col-7">
+                                    <group col="1" colspan="4">
+                                        <field name="tipo_herencia" invisible="1" select="0"/>
+                                        <field name="duplicacion_datos_catidad" invisible="1" select="0"/>
+                                        <field name="duplicacion_datos"
+                                               attrs="{'invisible': [('cantidad', '&lt;', 2)]}" force_save="1"></field>
+                                    </group>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <group colspan="4" attrs="{'invisible': [('valor_mostrar', '&lt;', 6)]}">
+                                <group colspan="4" attrs="{'invisible': [('tipo_herencia', '!=', '1')]}">
+                                    <separator string='Bienes Muebles' colspan="4"/>
+                                    <field attrs="{'readonly': [('duplicacion_datos_catidad', '=', True)], 'required': [('tipo_herencia', '=', '1')]}"
+                                           name="bienes_muebles_id" colspan="4" nolabel="1" select="0" force_save="1"/>
+                                </group>
+                                <group colspan="4" attrs="{'invisible': [('tipo_herencia', '!=', '2')]}">
+                                    <separator string='Vehiculos' colspan="4"/>
+                                    <field attrs="{'readonly': [('duplicacion_datos_catidad', '=', True)]}"
+                                           name="vehiculos_id" colspan="4" nolabel="1" select="0"/>
+                                </group>
+                                <group colspan="4" attrs="{'invisible': [('tipo_herencia', '!=', '3')]}">
+                                    <separator string='Inmueble' colspan="4"/>
+                                    <field attrs="{'readonly': [('duplicacion_datos_catidad', '=', True)]}"
+                                           name="inmueble_id" colspan="4" nolabel="1" select="0"/>
+                                </group>
+                                <group colspan="4" attrs="{'invisible': [('tipo_herencia', '!=', '4')]}">
+                                    <separator string='Animal Vivo' colspan="4"/>
+                                    <field attrs="{'readonly': [('duplicacion_datos_catidad', '=', True)]}"
+                                           name="animal_vivo_id" colspan="4" nolabel="1" select="0"/>
+                                </group>
+                                <group colspan="4" attrs="{'invisible': [('tipo_herencia', '!=', '5')]}">
+                                    <separator string='Bosques Plantas' colspan="4"/>
+                                    <field attrs="{'readonly': [('duplicacion_datos_catidad', '=', True)]}"
+                                           name="bosques_plantas_id" colspan="4" nolabel="1" select="0"/>
+                                </group>
+                                <group colspan="4" attrs="{'invisible': [('tipo_herencia', '!=', '6')]}">
+                                    <separator string='Pinacoteca' colspan="4"/>
+                                    <field attrs="{'readonly': [('duplicacion_datos_catidad', '=', True)]}"
+                                           name="pinacoteca_id" colspan="4" nolabel="1" select="0"/>
+                                </group>
+                                <group colspan="4" attrs="{'invisible': [('tipo_herencia', '!=', '7')]}">
+                                    <separator string='Escultura' colspan="4"/>
+                                    <field attrs="{'readonly': [('duplicacion_datos_catidad', '=', True)]}"
+                                           name="escultura_id" colspan="4" nolabel="1" select="0"/>
+                                </group>
+                                <group colspan="4" attrs="{'invisible': [('tipo_herencia', '!=', '8')]}">
+                                    <separator string='Arqueologia' colspan="4"/>
+                                    <field attrs="{'readonly': [('duplicacion_datos_catidad', '=', True)]}"
+                                           name="arqueologia_id" colspan="4" nolabel="1" select="0"/>
+                                </group>
+                                <group colspan="4" attrs="{'invisible': [('tipo_herencia', '!=', '9')]}">
+                                    <separator string='Libros y Colecciones' colspan="4"/>
+                                    <field attrs="{'readonly': [('duplicacion_datos_catidad', '=', True)]}"
+                                           name="libros_colecciones_id" colspan="4" nolabel="1" select="0"/>
+                                </group>
+                                <h2 class="o_horizontal_separator">Observaciones</h2>
+                                <field name="observaciones" colspan="4" nolabel="1" select="0"/>
+                            </group>
+                        </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: CABECERA -->
+
+    <!-- VISTA TREE: CABECERA -->
+    <record model="ir.ui.view" id="view_act_cabacera_tree">
+        <field name="name">cabacera.tree</field>
+        <field name="model">act.cabacera</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="cabacera">
+                <field name="codigo"/>
+                <field name="item_hijo"/>
+                <field name="bodega_id"/>
+                <field name="compra_id"/>
+                <field name="producto_id"/>
+                <field name="observaciones"/>
+                <field name="tipo_herencia"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: CABECERA -->
+
+    <!-- VISTA PIVOT: CABECERA -->
+    <record model="ir.ui.view" id="view_act_cabacera_pivot">
+        <field name="name">cabacera.tree</field>
+        <field name="model">act.cabacera</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="cabacera">
+                <field name="codigo"/>
+                <field name="item_padre"/>
+                <field name="item_hijo"/>
+                <field name="tipo_activo"/>
+                <field name="bodega_id"/>
+                <field name="bodega_cod"/>
+                <field name="bodega_descripcion"/>
+                <field name="bodego_ubicacion"/>
+                <field name="fecha_ingreso"/>
+                <field name="forma_ingreso"/>
+                <field name="codigo_bien_padre"/>
+                <field name="compra_id"/>
+                <field name="producto_id"/>
+                <field name="producto_codigo"/>
+                <field name="producto_des"/>
+                <field name="producto_costo"/>
+                <field name="descripcion"/>
+                <field name="cantidad"/>
+                <field name="org_ingreso"/>
+                <field name="tipo_respaldo_id"/>
+                <field name="clase_respaldo_id"/>
+                <field name="tip_comprobante"/>
+                <field name="fecha_comprobante"/>
+                <field name="codigo_actual"/>
+                <field name="estado"/>
+                <field name="depreciacion"/>
+                <field name="empleado_id"/>
+                <field name="valor_contable"/>
+                <field name="valor_residual"/>
+                <field name="valor_libros"/>
+                <field name="valor_dep_acumulada"/>
+                <field name="fecha_u_depreciacion"/>
+                <field name="vida_util_id"/>
+                <field name="observaciones"/>
+                <field name="tipo_herencia"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: CABECERA -->
+
+    <!-- MODELO: CABECERA -->
+    <record model="ir.actions.act_window" id="action_act_cabacera">
+        <field name="name">BIENES</field>
+        <field name="res_model">act.cabacera</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: CABECERA -->
+
+    <!-- MENÚ SECUNDARIO: CABECERA -->
+    <menuitem name="INGRESAR BIEN" id="menu_act_cabacera" action="action_act_cabacera" parent="men_pri_act"
+              sequence="2"/>
+
+    <!-- VISTA FORM: TIPOINGRESO -->
+    <record model="ir.ui.view" id="view_act_tipoingreso_form">
+        <field name="name">tipoingreso.form</field>
+        <field name="model">act.tipoingreso</field>
+        <field name="arch" type="xml">
+            <form string="tipoingreso">
+                <group col="4" colspan="2">
+                    <field name="tipo" select="2"/>
+                    <field name="descripcion" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: TIPOINGRESO -->
+
+    <!-- VISTA TREE: TIPOINGRESO -->
+    <record model="ir.ui.view" id="view_act_tipoingreso_tree">
+        <field name="name">tipoingreso.tree</field>
+        <field name="model">act.tipoingreso</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="tipoingreso" editable="top">
+                <field name="codigo"/>
+                <field name="tipo"/>
+                <field name="descripcion"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: TIPOINGRESO -->
+
+    <!-- VISTA PIVOT: TIPOINGRESO -->
+    <record model="ir.ui.view" id="view_act_tipoingreso_pivot">
+        <field name="name">tipoingreso.tree</field>
+        <field name="model">act.tipoingreso</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="tipoingreso">
+                <field name="codigo"/>
+                <field name="tipo"/>
+                <field name="descripcion"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: TIPOINGRESO -->
+
+    <!-- MODELO: TIPOINGRESO -->
+    <record model="ir.actions.act_window" id="action_act_tipoingreso">
+        <field name="name">TIPOINGRESO</field>
+        <field name="res_model">act.tipoingreso</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: TIPOINGRESO -->
+
+    <!-- MENÚ SECUNDARIO: TIPOINGRESO -->
+    <menuitem name="TIPO INGRESO" id="menu_act_tipoingreso" action="action_act_tipoingreso" parent="men_sec_act"/>
+
+    <!-- VISTA FORM: TIPORESPALDO -->
+    <record model="ir.ui.view" id="view_act_tiporespaldo_form">
+        <field name="name">tiporespaldo.form</field>
+        <field name="model">act.tiporespaldo</field>
+        <field name="arch" type="xml">
+            <form string="tiporespaldo">
+                <group col="4" colspan="2">
+                    <field name="tipo" select="2"/>
+                    <field name="descripcion" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: TIPORESPALDO -->
+
+    <!-- VISTA TREE: TIPORESPALDO -->
+    <record model="ir.ui.view" id="view_act_tiporespaldo_tree">
+        <field name="name">tiporespaldo.tree</field>
+        <field name="model">act.tiporespaldo</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="tiporespaldo" editable="top">
+                <field name="codigo"/>
+                <field name="tipo"/>
+                <field name="descripcion"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: TIPORESPALDO -->
+
+    <!-- VISTA PIVOT: TIPORESPALDO -->
+    <record model="ir.ui.view" id="view_act_tiporespaldo_pivot">
+        <field name="name">tiporespaldo.tree</field>
+        <field name="model">act.tiporespaldo</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="tiporespaldo">
+                <field name="codigo"/>
+                <field name="tipo"/>
+                <field name="descripcion"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: TIPORESPALDO -->
+
+    <!-- MODELO: TIPORESPALDO -->
+    <record model="ir.actions.act_window" id="action_act_tiporespaldo">
+        <field name="name">TIPORESPALDO</field>
+        <field name="res_model">act.tiporespaldo</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: TIPORESPALDO -->
+
+    <!-- MENÚ SECUNDARIO: TIPORESPALDO -->
+    <menuitem name="TIPO RESPALDO" id="menu_act_tiporespaldo" action="action_act_tiporespaldo" parent="men_sec_act"/>
+
+    <!-- VISTA FORM: CLASERESPALDO -->
+    <record model="ir.ui.view" id="view_act_claserespaldo_form">
+        <field name="name">claserespaldo.form</field>
+        <field name="model">act.claserespaldo</field>
+        <field name="arch" type="xml">
+            <form string="claserespaldo">
+                <group col="4" colspan="2">
+                    <field name="tipo" select="2"/>
+                    <field name="descripcion" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: CLASERESPALDO -->
+
+    <!-- VISTA TREE: CLASERESPALDO -->
+    <record model="ir.ui.view" id="view_act_claserespaldo_tree">
+        <field name="name">claserespaldo.tree</field>
+        <field name="model">act.claserespaldo</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="claserespaldo" editable="top">
+                <field name="codigo"/>
+                <field name="tipo"/>
+                <field name="descripcion"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: CLASERESPALDO -->
+
+    <!-- VISTA PIVOT: CLASERESPALDO -->
+    <record model="ir.ui.view" id="view_act_claserespaldo_pivot">
+        <field name="name">claserespaldo.tree</field>
+        <field name="model">act.claserespaldo</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="claserespaldo">
+                <field name="codigo"/>
+                <field name="tipo"/>
+                <field name="descripcion"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: CLASERESPALDO -->
+
+    <!-- MODELO: CLASERESPALDO -->
+    <record model="ir.actions.act_window" id="action_act_claserespaldo">
+        <field name="name">CLASERESPALDO</field>
+        <field name="res_model">act.claserespaldo</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: CLASERESPALDO -->
+
+    <!-- MENÚ SECUNDARIO: CLASERESPALDO -->
+    <menuitem name="CLASE RESPALDO" id="menu_act_claserespaldo" action="action_act_claserespaldo" parent="men_sec_act"/>
+
+</odoo>

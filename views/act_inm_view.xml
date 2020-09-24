@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <!-- MENÚ SECUNDARIO -->
+    <menuitem name="MENU ACT_INM" id="men_sec_act_inm" parent="men_pri_act"/>
+
+
+    <!-- VISTA FORM: INMUEBLE -->
+    <record model="ir.ui.view" id="view_act_inm_inmueble_form">
+        <field name="name">inmueble.form</field>
+        <field name="model">act.inm.inmueble</field>
+        <field name="arch" type="xml">
+            <form string="inmueble">
+                <group col="4" colspan="2">
+                    <group colspan="2">
+                        <field name="marca" select="0"/>
+                        <field name="modelo" select="0"/>
+                        <field name="serie" select="0"/>
+                        <field name="pro_reg_municipio" select="2"/>
+                        <field name="clave_catastral" select="0"/>
+                        <field name="num_predio" select="0"/>
+                        <field name="valor_avaluo" select="0"/>
+                        <field name="anio_avaluo" select="0"/>
+                        <field name="direccion_id" select="0"/>
+                    </group>
+                    <group colspan="2">
+                        <field name="num_pisos" select="0"/>
+                        <field name="area_predio" select="0"/>
+                        <field name="area_contruccion" select="0"/>
+                        <field name="num_escritura" select="0"/>
+                        <field name="fecha_escritura" select="0"/>
+                        <field name="notari" select="0"/>
+                        <field name="beneficiario" select="0"/>
+                        <field name="fecha_contrato" select="0"/>
+                        <field name="fecha_duracion" select="0"/>
+                        <field name="canon_actua" select="0"/>
+                        <field name="codigo" invisible="1" select="1"/>
+                    </group>
+                </group>
+                <script type="text/javascript">
+                    validar_inmueble();
+                </script>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: INMUEBLE -->
+
+    <!-- VISTA TREE: INMUEBLE -->
+    <record model="ir.ui.view" id="view_act_inm_inmueble_tree">
+        <field name="name">inmueble.tree</field>
+        <field name="model">act.inm.inmueble</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="inmueble">
+                <field name="codigo"/>
+                <field name="pro_reg_municipio"/>
+                <field name="clave_catastral"/>
+                <field name="num_predio"/>
+                <field name="valor_avaluo"/>
+                <field name="anio_avaluo"/>
+                <field name="area_predio"/>
+                <field name="area_contruccion"/>
+                <field name="num_pisos"/>
+                <field name="num_escritura"/>
+                <field name="fecha_escritura"/>
+                <field name="notari"/>
+                <field name="beneficiario"/>
+                <field name="fecha_contrato"/>
+                <field name="fecha_duracion"/>
+                <field name="canon_actua"/>
+                <field name="direccion_id"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: INMUEBLE -->
+
+    <!-- VISTA PIVOT: INMUEBLE -->
+    <record model="ir.ui.view" id="view_act_inm_inmueble_pivot">
+        <field name="name">inmueble.tree</field>
+        <field name="model">act.inm.inmueble</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="inmueble">
+                <field name="codigo"/>
+                <field name="pro_reg_municipio"/>
+                <field name="clave_catastral"/>
+                <field name="num_predio"/>
+                <field name="valor_avaluo"/>
+                <field name="anio_avaluo"/>
+                <field name="area_predio"/>
+                <field name="area_contruccion"/>
+                <field name="num_pisos"/>
+                <field name="num_escritura"/>
+                <field name="fecha_escritura"/>
+                <field name="notari"/>
+                <field name="beneficiario"/>
+                <field name="fecha_contrato"/>
+                <field name="fecha_duracion"/>
+                <field name="canon_actua"/>
+                <field name="direccion_id"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: INMUEBLE -->
+
+    <!-- MODELO: INMUEBLE -->
+    <record model="ir.actions.act_window" id="action_act_inm_inmueble">
+        <field name="name">INMUEBLE</field>
+        <field name="res_model">act.inm.inmueble</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: INMUEBLE -->
+
+    <!-- MENÚ SECUNDARIO: INMUEBLE
+    <menuitem name="INMUEBLE" id="menu_act_inm_inmueble" action="action_act_inm_inmueble" parent="men_sec_act_inm"/> -->
+
+    <!-- VISTA FORM: DIRECCION -->
+    <record model="ir.ui.view" id="view_act_inm_direccion_form">
+        <field name="name">direccion.form</field>
+        <field name="model">act.inm.direccion</field>
+        <field name="arch" type="xml">
+            <form string="direccion">
+                <group col="4" colspan="2">
+                    <group colspan="2">
+                        <field name="region_id"
+                               options="{'no_quick_create':True,'no_create_edit':True,'no_open': True}"/>
+                        <field name="provincia_id" domain="[('region_id', '=', region_id)]"
+                               options="{'no_quick_create':True,'no_create_edit':True,'no_open': True}"/>
+                        <field name="canton_id" domain="[('provincia_id', '=', provincia_id)]"
+                               options="{'no_quick_create':True,'no_create_edit':True,'no_open': True}"/>
+                        <field name="parroquia_id" domain="[('canton_id', '=', canton_id)]"/>
+                        <field name="zona" select="0"/>
+                    </group>
+                    <group colspan="2">
+                        <field name="sector" select="0"/>
+                        <field name="calle_principal" select="0"/>
+                        <field name="num_calle" select="0"/>
+                        <field name="calle_secundaria" select="0"/>
+                        <field name="codigo" invisible="1" select="1"/>
+                    </group>
+                </group>
+                <script type="text/javascript">
+                    validar_direccions();
+                </script>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: DIRECCION -->
+
+    <!-- VISTA TREE: DIRECCION -->
+    <record model="ir.ui.view" id="view_act_inm_direccion_tree">
+        <field name="name">direccion.tree</field>
+        <field name="model">act.inm.direccion</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="direccion">
+                <field name="codigo"/>
+                <field name="parroquia_id"/>
+                <field name="zona"/>
+                <field name="sector"/>
+                <field name="calle_principal"/>
+                <field name="num_calle"/>
+                <field name="calle_secundaria"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: DIRECCION -->
+
+    <!-- VISTA PIVOT: DIRECCION -->
+    <record model="ir.ui.view" id="view_act_inm_direccion_pivot">
+        <field name="name">direccion.tree</field>
+        <field name="model">act.inm.direccion</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="direccion">
+                <field name="codigo"/>
+                <field name="parroquia_id"/>
+                <field name="zona"/>
+                <field name="sector"/>
+                <field name="calle_principal"/>
+                <field name="num_calle"/>
+                <field name="calle_secundaria"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: DIRECCION -->
+
+    <!-- MODELO: DIRECCION -->
+    <record model="ir.actions.act_window" id="action_act_inm_direccion">
+        <field name="name">DIRECCION</field>
+        <field name="res_model">act.inm.direccion</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: DIRECCION -->
+
+    <!-- MENÚ SECUNDARIO: DIRECCION
+    <menuitem name="DIRECCION" id="menu_act_inm_direccion" action="action_act_inm_direccion" parent="men_sec_act_inm"/> -->
+
+</odoo>

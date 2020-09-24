@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<odoo>
+
+
+    <!-- MENÚ SECUNDARIO -->
+    <menuitem name="MENU ACT_BOS" id="men_sec_act_bos" parent="men_pri_act"/>
+
+
+    <!-- VISTA FORM: BOSQUESPLANTAS -->
+    <record model="ir.ui.view" id="view_act_bos_bosquesplantas_form">
+        <field name="name">bosquesplantas.form</field>
+        <field name="model">act.bos.bosquesplantas</field>
+        <field name="arch" type="xml">
+            <form string="bosquesplantas">
+                <group col="4" colspan="2">
+                    <field name="marca" select="0"/>
+                    <field name="modelo" select="0"/>
+                    <field name="serie" select="0"/>
+
+                    <field name="tipo_cultivo_id" select="2"/>
+                    <field name="aera_siembra" select="0"/>
+                    <field name="finalidad_cultivo" select="0"/>
+                    <field name="fecha_siembra" select="0"/>
+                    <field name="codigo" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: BOSQUESPLANTAS -->
+
+    <!-- VISTA TREE: BOSQUESPLANTAS -->
+    <record model="ir.ui.view" id="view_act_bos_bosquesplantas_tree">
+        <field name="name">bosquesplantas.tree</field>
+        <field name="model">act.bos.bosquesplantas</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="bosquesplantas">
+                <field name="codigo"/>
+                <field name="tipo_cultivo_id"/>
+                <field name="aera_siembra"/>
+                <field name="finalidad_cultivo"/>
+                <field name="fecha_siembra"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: BOSQUESPLANTAS -->
+
+    <!-- VISTA PIVOT: BOSQUESPLANTAS -->
+    <record model="ir.ui.view" id="view_act_bos_bosquesplantas_pivot">
+        <field name="name">bosquesplantas.tree</field>
+        <field name="model">act.bos.bosquesplantas</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="bosquesplantas">
+                <field name="codigo"/>
+                <field name="tipo_cultivo_id"/>
+                <field name="fecha_siembra"/>
+                <field name="aera_siembra"/>
+                <field name="finalidad_cultivo"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: BOSQUESPLANTAS -->
+
+    <!-- MODELO: BOSQUESPLANTAS -->
+    <record model="ir.actions.act_window" id="action_act_bos_bosquesplantas">
+        <field name="name">BOSQUESPLANTAS</field>
+        <field name="res_model">act.bos.bosquesplantas</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: BOSQUESPLANTAS -->
+
+    <!-- MENÚ SECUNDARIO: BOSQUESPLANTAS
+    <menuitem name="BOSQUESPLANTAS" id="menu_act_bos_bosquesplantas" action="action_act_bos_bosquesplantas" parent="men_sec_act_bos"/> -->
+
+    <!-- VISTA FORM: TIPOCULTIVO -->
+    <record model="ir.ui.view" id="view_act_bos_tipocultivo_form">
+        <field name="name">tipocultivo.form</field>
+        <field name="model">act.bos.tipocultivo</field>
+        <field name="arch" type="xml">
+            <form string="tipocultivo">
+                <group col="4" colspan="2">
+                    <field name="tipo" select="2"/>
+                    <field name="descripcion" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: TIPOCULTIVO -->
+
+    <!-- VISTA TREE: TIPOCULTIVO -->
+    <record model="ir.ui.view" id="view_act_bos_tipocultivo_tree">
+        <field name="name">tipocultivo.tree</field>
+        <field name="model">act.bos.tipocultivo</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="tipocultivo">
+                <field name="codigo"/>
+                <field name="tipo"/>
+                <field name="descripcion"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: TIPOCULTIVO -->
+
+    <!-- VISTA PIVOT: TIPOCULTIVO -->
+    <record model="ir.ui.view" id="view_act_bos_tipocultivo_pivot">
+        <field name="name">tipocultivo.tree</field>
+        <field name="model">act.bos.tipocultivo</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="tipocultivo">
+                <field name="codigo"/>
+                <field name="tipo"/>
+                <field name="descripcion"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: TIPOCULTIVO -->
+
+    <!-- MODELO: TIPOCULTIVO -->
+    <record model="ir.actions.act_window" id="action_act_bos_tipocultivo">
+        <field name="name">TIPOCULTIVO</field>
+        <field name="res_model">act.bos.tipocultivo</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: TIPOCULTIVO -->
+
+    <!-- MENÚ SECUNDARIO: TIPOCULTIVO
+    <menuitem name="TIPOCULTIVO" id="menu_act_bos_tipocultivo" action="action_act_bos_tipocultivo" parent="men_sec_act_bos"/> -->
+
+</odoo>

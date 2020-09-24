@@ -1,0 +1,562 @@
+<?xml version="1.0"?>
+<odoo>
+
+
+    <!-- MENÚ SECUNDARIO -->
+    <menuitem name="MENU ACT_PIN" id="men_sec_act_pin" parent="men_pri_act"/>
+
+
+    <!-- VISTA FORM: PINACOTECA -->
+    <record model="ir.ui.view" id="view_act_pin_pinacoteca_form">
+        <field name="name">pinacoteca.form</field>
+        <field name="model">act.pin.pinacoteca</field>
+        <field name="arch" type="xml">
+            <form string="pinacoteca">
+                <group col="4" colspan="2">
+                    <group colspan="2">
+
+                        <field name="marca"   select="0" />
+                        <field name="modelo" select="0"/>
+                        <field name="serie" select="0"/>
+
+
+                        <field name="nombre" select="2"/>
+                        <field name="autor_id" select="0"/>
+                        <field name="epoca_id" select="0"/>
+                        <field name="pintura_id" select="0"/>
+                        <field name="ancho" select="0"/>
+                        <field name="largo" select="0"/>
+                        <field name="codigo" invisible="1" select="1"/>
+                    </group>
+                    <group colspan="2">
+                        <field name="artes_menores" select="0"/>
+                        <field name="tecnicas_id" select="0"/>
+                        <field name="procedencia" select="0"/>
+                        <field name="estado_conservacion" select="0"/>
+                        <field name="estado_integridad" select="0"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: PINACOTECA -->
+
+    <!-- VISTA TREE: PINACOTECA -->
+    <record model="ir.ui.view" id="view_act_pin_pinacoteca_tree">
+        <field name="name">pinacoteca.tree</field>
+        <field name="model">act.pin.pinacoteca</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="pinacoteca">
+                <field name="codigo"/>
+                <field name="nombre"/>
+                <field name="epoca_id"/>
+                <field name="pintura_id"/>
+                <field name="autor_id"/>
+                <field name="ancho"/>
+                <field name="largo"/>
+                <field name="artes_menores"/>
+                <field name="tecnicas_id"/>
+                <field name="procedencia"/>
+                <field name="estado_conservacion"/>
+                <field name="estado_integridad"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: PINACOTECA -->
+
+    <!-- VISTA PIVOT: PINACOTECA -->
+    <record model="ir.ui.view" id="view_act_pin_pinacoteca_pivot">
+        <field name="name">pinacoteca.tree</field>
+        <field name="model">act.pin.pinacoteca</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="pinacoteca">
+                <field name="codigo"/>
+                <field name="nombre"/>
+                <field name="epoca_id"/>
+                <field name="pintura_id"/>
+                <field name="autor_id"/>
+                <field name="ancho"/>
+                <field name="largo"/>
+                <field name="artes_menores"/>
+                <field name="tecnicas_id"/>
+                <field name="procedencia"/>
+                <field name="estado_conservacion"/>
+                <field name="estado_integridad"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: PINACOTECA -->
+
+    <!-- MODELO: PINACOTECA -->
+    <record model="ir.actions.act_window" id="action_act_pin_pinacoteca">
+        <field name="name">PINACOTECA</field>
+        <field name="res_model">act.pin.pinacoteca</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: PINACOTECA -->
+
+    <!-- MENÚ SECUNDARIO: PINACOTECA
+    <menuitem name="PINACOTECA" id="menu_act_pin_pinacoteca" action="action_act_pin_pinacoteca" parent="men_sec_act_pin"/> -->
+
+    <!-- VISTA FORM: EPOCA -->
+    <record model="ir.ui.view" id="view_act_pin_epoca_form">
+        <field name="name">epoca.form</field>
+        <field name="model">act.pin.epoca</field>
+        <field name="arch" type="xml">
+            <form string="epoca">
+                <group col="4" colspan="2">
+                    <field name="siglo" select="2"/>
+                    <field name="decripcion" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: EPOCA -->
+
+    <!-- VISTA TREE: EPOCA -->
+    <record model="ir.ui.view" id="view_act_pin_epoca_tree">
+        <field name="name">epoca.tree</field>
+        <field name="model">act.pin.epoca</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="epoca" editable="top">
+                <field name="codigo"/>
+                <field name="siglo"/>
+                <field name="decripcion"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: EPOCA -->
+
+    <!-- VISTA PIVOT: EPOCA -->
+    <record model="ir.ui.view" id="view_act_pin_epoca_pivot">
+        <field name="name">epoca.tree</field>
+        <field name="model">act.pin.epoca</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="epoca">
+                <field name="codigo"/>
+                <field name="siglo"/>
+                <field name="decripcion"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: EPOCA -->
+
+    <!-- MODELO: EPOCA -->
+    <record model="ir.actions.act_window" id="action_act_pin_epoca">
+        <field name="name">EPOCA</field>
+        <field name="res_model">act.pin.epoca</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: EPOCA -->
+
+    <!-- MENÚ SECUNDARIO: EPOCA
+    <menuitem name="EPOCA" id="menu_act_pin_epoca" action="action_act_pin_epoca" parent="men_sec_act_pin"/> -->
+
+    <!-- VISTA FORM: PINTURA -->
+    <record model="ir.ui.view" id="view_act_pin_pintura_form">
+        <field name="name">pintura.form</field>
+        <field name="model">act.pin.pintura</field>
+        <field name="arch" type="xml">
+            <form string="pintura">
+                <group col="4" colspan="2">
+                    <field name="pintura" select="2"/>
+                    <field name="decripcion" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: PINTURA -->
+
+    <!-- VISTA TREE: PINTURA -->
+    <record model="ir.ui.view" id="view_act_pin_pintura_tree">
+        <field name="name">pintura.tree</field>
+        <field name="model">act.pin.pintura</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="pintura" editable="top">
+                <field name="codigo"/>
+                <field name="pintura"/>
+                <field name="decripcion"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: PINTURA -->
+
+    <!-- VISTA PIVOT: PINTURA -->
+    <record model="ir.ui.view" id="view_act_pin_pintura_pivot">
+        <field name="name">pintura.tree</field>
+        <field name="model">act.pin.pintura</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="pintura">
+                <field name="codigo"/>
+                <field name="pintura"/>
+                <field name="decripcion"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: PINTURA -->
+
+    <!-- MODELO: PINTURA -->
+    <record model="ir.actions.act_window" id="action_act_pin_pintura">
+        <field name="name">PINTURA</field>
+        <field name="res_model">act.pin.pintura</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: PINTURA -->
+
+    <!-- MENÚ SECUNDARIO: PINTURA
+    <menuitem name="PINTURA" id="menu_act_pin_pintura" action="action_act_pin_pintura" parent="men_sec_act_pin"/> -->
+
+    <!-- VISTA FORM: ESTILO -->
+    <record model="ir.ui.view" id="view_act_pin_estilo_form">
+        <field name="name">estilo.form</field>
+        <field name="model">act.pin.estilo</field>
+        <field name="arch" type="xml">
+            <form string="estilo">
+                <group col="4" colspan="2">
+                    <field name="estilo" select="2"/>
+                    <field name="decripcion" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: ESTILO -->
+
+    <!-- VISTA TREE: ESTILO -->
+    <record model="ir.ui.view" id="view_act_pin_estilo_tree">
+        <field name="name">estilo.tree</field>
+        <field name="model">act.pin.estilo</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="estilo" editable="top">
+                <field name="codigo"/>
+                <field name="estilo"/>
+                <field name="decripcion"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: ESTILO -->
+
+    <!-- VISTA PIVOT: ESTILO -->
+    <record model="ir.ui.view" id="view_act_pin_estilo_pivot">
+        <field name="name">estilo.tree</field>
+        <field name="model">act.pin.estilo</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="estilo">
+                <field name="codigo"/>
+                <field name="estilo"/>
+                <field name="decripcion"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: ESTILO -->
+
+    <!-- MODELO: ESTILO -->
+    <record model="ir.actions.act_window" id="action_act_pin_estilo">
+        <field name="name">ESTILO</field>
+        <field name="res_model">act.pin.estilo</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: ESTILO -->
+
+    <!-- MENÚ SECUNDARIO: ESTILO
+    <menuitem name="ESTILO" id="menu_act_pin_estilo" action="action_act_pin_estilo" parent="men_sec_act_pin"/> -->
+
+    <!-- VISTA FORM: ARTESMENORES -->
+    <record model="ir.ui.view" id="view_act_pin_artesmenores_form">
+        <field name="name">artesmenores.form</field>
+        <field name="model">act.pin.artesmenores</field>
+        <field name="arch" type="xml">
+            <form string="artesmenores">
+                <group col="4" colspan="2">
+                    <field name="artes" select="2"/>
+                    <field name="decripcion" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: ARTESMENORES -->
+
+    <!-- VISTA TREE: ARTESMENORES -->
+    <record model="ir.ui.view" id="view_act_pin_artesmenores_tree">
+        <field name="name">artesmenores.tree</field>
+        <field name="model">act.pin.artesmenores</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="artesmenores" editable="top">
+                <field name="codigo"/>
+                <field name="artes"/>
+                <field name="decripcion"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: ARTESMENORES -->
+
+    <!-- VISTA PIVOT: ARTESMENORES -->
+    <record model="ir.ui.view" id="view_act_pin_artesmenores_pivot">
+        <field name="name">artesmenores.tree</field>
+        <field name="model">act.pin.artesmenores</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="artesmenores">
+                <field name="codigo"/>
+                <field name="artes"/>
+                <field name="decripcion"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: ARTESMENORES -->
+
+    <!-- MODELO: ARTESMENORES -->
+    <record model="ir.actions.act_window" id="action_act_pin_artesmenores">
+        <field name="name">ARTESMENORES</field>
+        <field name="res_model">act.pin.artesmenores</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: ARTESMENORES -->
+
+    <!-- MENÚ SECUNDARIO: ARTESMENORES
+    <menuitem name="ARTESMENORES" id="menu_act_pin_artesmenores" action="action_act_pin_artesmenores" parent="men_sec_act_pin"/> -->
+
+    <!-- VISTA FORM: TECNICASDECORATIVAS -->
+    <record model="ir.ui.view" id="view_act_pin_tecnicasdecorativas_form">
+        <field name="name">tecnicasdecorativas.form</field>
+        <field name="model">act.pin.tecnicasdecorativas</field>
+        <field name="arch" type="xml">
+            <form string="tecnicasdecorativas">
+                <group col="4" colspan="2">
+                    <field name="tecnicas" select="2"/>
+                    <field name="decripcion" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: TECNICASDECORATIVAS -->
+
+    <!-- VISTA TREE: TECNICASDECORATIVAS -->
+    <record model="ir.ui.view" id="view_act_pin_tecnicasdecorativas_tree">
+        <field name="name">tecnicasdecorativas.tree</field>
+        <field name="model">act.pin.tecnicasdecorativas</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="tecnicasdecorativas" editable="top">
+                <field name="codigo"/>
+                <field name="tecnicas"/>
+                <field name="decripcion"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: TECNICASDECORATIVAS -->
+
+    <!-- VISTA PIVOT: TECNICASDECORATIVAS -->
+    <record model="ir.ui.view" id="view_act_pin_tecnicasdecorativas_pivot">
+        <field name="name">tecnicasdecorativas.tree</field>
+        <field name="model">act.pin.tecnicasdecorativas</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="tecnicasdecorativas">
+                <field name="codigo"/>
+                <field name="tecnicas"/>
+                <field name="decripcion"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: TECNICASDECORATIVAS -->
+
+    <!-- MODELO: TECNICASDECORATIVAS -->
+    <record model="ir.actions.act_window" id="action_act_pin_tecnicasdecorativas">
+        <field name="name">TECNICASDECORATIVAS</field>
+        <field name="res_model">act.pin.tecnicasdecorativas</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: TECNICASDECORATIVAS -->
+
+    <!-- MENÚ SECUNDARIO: TECNICASDECORATIVAS
+    <menuitem name="TECNICASDECORATIVAS" id="menu_act_pin_tecnicasdecorativas" action="action_act_pin_tecnicasdecorativas" parent="men_sec_act_pin"/> -->
+
+    <!-- VISTA FORM: CONSERVACION -->
+    <record model="ir.ui.view" id="view_act_pin_conservacion_form">
+        <field name="name">conservacion.form</field>
+        <field name="model">act.pin.conservacion</field>
+        <field name="arch" type="xml">
+            <form string="conservacion">
+                <group col="4" colspan="2">
+                    <field name="estado" select="2"/>
+                    <field name="decripcion" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: CONSERVACION -->
+
+    <!-- VISTA TREE: CONSERVACION -->
+    <record model="ir.ui.view" id="view_act_pin_conservacion_tree">
+        <field name="name">conservacion.tree</field>
+        <field name="model">act.pin.conservacion</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="conservacion" editable="top">
+                <field name="codigo"/>
+                <field name="estado"/>
+                <field name="decripcion"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: CONSERVACION -->
+
+    <!-- VISTA PIVOT: CONSERVACION -->
+    <record model="ir.ui.view" id="view_act_pin_conservacion_pivot">
+        <field name="name">conservacion.tree</field>
+        <field name="model">act.pin.conservacion</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="conservacion">
+                <field name="codigo"/>
+                <field name="estado"/>
+                <field name="decripcion"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: CONSERVACION -->
+
+    <!-- MODELO: CONSERVACION -->
+    <record model="ir.actions.act_window" id="action_act_pin_conservacion">
+        <field name="name">CONSERVACION</field>
+        <field name="res_model">act.pin.conservacion</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: CONSERVACION -->
+
+    <!-- MENÚ SECUNDARIO: CONSERVACION
+    <menuitem name="CONSERVACION" id="menu_act_pin_conservacion" action="action_act_pin_conservacion" parent="men_sec_act_pin"/> -->
+
+    <!-- VISTA FORM: INTEGRIDAD -->
+    <record model="ir.ui.view" id="view_act_pin_integridad_form">
+        <field name="name">integridad.form</field>
+        <field name="model">act.pin.integridad</field>
+        <field name="arch" type="xml">
+            <form string="integridad">
+                <group col="4" colspan="2">
+                    <field name="estado" select="2"/>
+                    <field name="decripcion" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: INTEGRIDAD -->
+
+    <!-- VISTA TREE: INTEGRIDAD -->
+    <record model="ir.ui.view" id="view_act_pin_integridad_tree">
+        <field name="name">integridad.tree</field>
+        <field name="model">act.pin.integridad</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="integridad">
+                <field name="codigo"/>
+                <field name="estado"/>
+                <field name="decripcion"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: INTEGRIDAD -->
+
+    <!-- VISTA PIVOT: INTEGRIDAD -->
+    <record model="ir.ui.view" id="view_act_pin_integridad_pivot">
+        <field name="name">integridad.tree</field>
+        <field name="model">act.pin.integridad</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="integridad">
+                <field name="codigo"/>
+                <field name="estado"/>
+                <field name="decripcion"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: INTEGRIDAD -->
+
+    <!-- MODELO: INTEGRIDAD -->
+    <record model="ir.actions.act_window" id="action_act_pin_integridad">
+        <field name="name">INTEGRIDAD</field>
+        <field name="res_model">act.pin.integridad</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: INTEGRIDAD -->
+
+    <!-- MENÚ SECUNDARIO: INTEGRIDAD
+    <menuitem name="INTEGRIDAD" id="menu_act_pin_integridad" action="action_act_pin_integridad" parent="men_sec_act_pin"/> -->
+
+    <!-- VISTA FORM: AUTOR -->
+    <record model="ir.ui.view" id="view_act_pin_autor_form">
+        <field name="name">autor.form</field>
+        <field name="model">act.pin.autor</field>
+        <field name="arch" type="xml">
+            <form string="autor">
+                <group col="4" colspan="2">
+                    <field name="nombres" select="2"/>
+                    <field name="apellidos" select="0"/>
+                    <field name="genero" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: AUTOR -->
+
+    <!-- VISTA TREE: AUTOR -->
+    <record model="ir.ui.view" id="view_act_pin_autor_tree">
+        <field name="name">autor.tree</field>
+        <field name="model">act.pin.autor</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="autor">
+                <field name="codigo"/>
+                <field name="nombres"/>
+                <field name="apellidos"/>
+                <field name="genero"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: AUTOR -->
+
+    <!-- VISTA PIVOT: AUTOR -->
+    <record model="ir.ui.view" id="view_act_pin_autor_pivot">
+        <field name="name">autor.tree</field>
+        <field name="model">act.pin.autor</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="autor">
+                <field name="codigo"/>
+                <field name="nombres"/>
+                <field name="apellidos"/>
+                <field name="genero"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: AUTOR -->
+
+    <!-- MODELO: AUTOR -->
+    <record model="ir.actions.act_window" id="action_act_pin_autor">
+        <field name="name">AUTOR</field>
+        <field name="res_model">act.pin.autor</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: AUTOR -->
+
+    <!-- MENÚ SECUNDARIO: AUTOR
+    <menuitem name="AUTOR" id="menu_act_pin_autor" action="action_act_pin_autor" parent="men_sec_act_pin"/> -->
+
+</odoo>
