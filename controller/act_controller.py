@@ -154,7 +154,7 @@ class act_controlador(act.Cabacera):
                 self.valor_mostrar = 6
             else:
                 self.valor_mostrar = 5
-            # self.tipo_herencia = '2'
+            self.tipo_herencia = '2'
 
     @api.onchange('tip_comprobante')
     def _change_tip_comprobante(self):
@@ -233,27 +233,6 @@ class act_controlador(act.Cabacera):
             else:
                 self.duplicacion_datos_catidad = False
 
-    @api.constrains('vehiculos_id')
-    def _check_vehiculos_id(self):
-        if self.tipo_herencia == '2':
-            if self.vehiculos_id:
-                veh = self.vehiculos_id
-                for h in veh:
-                    if h.dato_icorrecto:
-                        mess = {
-                            'title': 'Vehiculos ',
-                            'type': 'notification',
-                            'message': "Validar los Datos de los Vehiculos"
-                        }
-                        return {'warning': mess}
-            else:
-                mess = {
-                    'title': 'Vehiculos ',
-                    'type': 'error',
-                    'message': "Necesita Ingresar Bienes"
-                }
-                return {'warning': mess}
-
     @api.model
     def create(self, values):
         self.validar_herencia(values)
@@ -264,7 +243,7 @@ class act_controlador(act.Cabacera):
             values['valor_contable'] = values['valor_contable'] / cantidad
             values['valor_residual'] = values['valor_residual'] / cantidad
             values['valor_libros'] = values['valor_libros'] / cantidad
-            #valor acomulado
+            # valor acomulado
             values['cantidad'] = 1
             values['forma_ingreso'] = 'I'
             values['duplicacion_datos'] = False
@@ -329,32 +308,72 @@ class act_controlador(act.Cabacera):
         if tipo == '9' and values.get('libros_colecciones_id') == None:
             raise ValidationError("Necesita ingresar Libros y Colecciones")
 
-        if values['duplicacion_datos']:
-            can = values['cantidad']
-            if tipo == '1':
-                if len(values['bienes_muebles_id']) < can:
-                    raise ValidationError("Necesita ingresar " + str(can) + " Bienes muebles")
-            if tipo == '2':
-                if len(values['vehiculos_id']) < can:
-                    raise ValidationError("Necesita ingresar " + str(can) + " Vehículo")
-            if tipo == '3':
-                if len(values['inmueble_id']) < can:
-                    raise ValidationError("Necesita ingresar " + str(can) + " Inmuebles")
-            if tipo == '4':
-                if len(values['animal_vivo_id']) < can:
-                    raise ValidationError("Necesita ingresar " + str(can) + " Animales Vivos")
-            if tipo == '5':
-                if len(values['bosques_plantas_id']) < can:
-                    raise ValidationError("Necesita ingresar " + str(can) + " Bosques Plantas")
-            if tipo == '6':
-                if len(values['pinacoteca_id']) < can:
-                    raise ValidationError("Necesita ingresar " + str(can) + " Pinacotecas")
-            if tipo == '7':
-                if len(values['escultura_id']) < can:
-                    raise ValidationError("Necesita ingresar " + str(can) + " Esculturas")
-            if tipo == '8':
-                if len(values['arqueologia_id']) < can:
-                    raise ValidationError("Necesita ingresar " + str(can) + " Arqueologias")
-            if tipo == '9':
-                if len(values['libros_colecciones_id']) < can:
-                    raise ValidationError("Necesita ingresar " + str(can) + " Libros y Colecciones")
+        dup = values['duplicacion_datos']
+        can = values['cantidad']
+        if dup and tipo == '1' and len(values['bienes_muebles_id']) < can:
+            raise ValidationError("Necesita ingresar " + str(can) + " Bienes muebles")
+        elif dup and tipo == '1' and len(values['bienes_muebles_id']) >= can:
+            self.buscar_datos_erroneso(values['bienes_muebles_id'])
+        elif not dup and tipo == '1':
+            self.buscar_datos_erroneso(values['bienes_muebles_id'])
+
+        if dup and tipo == '2' and len(values['vehiculos_id']) < can:
+            raise ValidationError("Necesita ingresar " + str(can) + " Vehículo")
+        elif dup and tipo == '2' and len(values['vehiculos_id']) >= can:
+            self.buscar_datos_erroneso(values['vehiculos_id'])
+        elif not dup and tipo == '2':
+            self.buscar_datos_erroneso(values['vehiculos_id'])
+
+        if dup and tipo == '3' and len(values['inmueble_id']) < can:
+            raise ValidationError("Necesita ingresar " + str(can) + " Inmuebles")
+        elif dup and tipo == '3' and len(values['inmueble_id']) >= can:
+            self.buscar_datos_erroneso(values['inmueble_id'])
+        elif not dup and tipo == '3':
+            self.buscar_datos_erroneso(values['inmueble_id'])
+
+        if dup and tipo == '4' and len(values['animal_vivo_id']) < can:
+            raise ValidationError("Necesita ingresar " + str(can) + " Animales Vivos")
+        elif dup and tipo == '4' and len(values['animal_vivo_id']) >= can:
+            self.buscar_datos_erroneso(values['animal_vivo_id'])
+        elif not dup and tipo == '4':
+            self.buscar_datos_erroneso(values['animal_vivo_id'])
+
+        if dup and tipo == '5' and len(values['bosques_plantas_id']) < can:
+            raise ValidationError("Necesita ingresar " + str(can) + " Bosques Plantas")
+        elif dup and tipo == '5' and len(values['bosques_plantas_id']) >= can:
+            self.buscar_datos_erroneso(values['bosques_plantas_id'])
+        elif not dup and tipo == '5':
+            self.buscar_datos_erroneso(values['bosques_plantas_id'])
+
+        if dup and tipo == '6' and len(values['pinacoteca_id']) < can:
+            raise ValidationError("Necesita ingresar " + str(can) + " Pinacotecas")
+        elif dup and tipo == '6' and len(values['pinacoteca_id']) >= can:
+            self.buscar_datos_erroneso(values['pinacoteca_id'])
+        elif not dup and tipo == '6':
+            self.buscar_datos_erroneso(values['pinacoteca_id'])
+
+        if dup and tipo == '7' and len(values['escultura_id']) < can:
+            raise ValidationError("Necesita ingresar " + str(can) + " Esculturas")
+        elif dup and tipo == '7' and len(values['escultura_id']) >= can:
+            self.buscar_datos_erroneso(values['escultura_id'])
+        elif not dup and tipo == '7':
+            self.buscar_datos_erroneso(values['escultura_id'])
+
+        if dup and tipo == '8' and len(values['arqueologia_id']) < can:
+            raise ValidationError("Necesita ingresar " + str(can) + " Arqueologias")
+        elif dup and tipo == '8' and len(values['arqueologia_id']) >= can:
+            self.buscar_datos_erroneso(values['arqueologia_id'])
+        elif not dup and tipo == '8':
+            self.buscar_datos_erroneso(values['arqueologia_id'])
+
+        if dup and tipo == '9' and len(values['libros_colecciones_id']) < can:
+            raise ValidationError("Necesita ingresar " + str(can) + " Libros y Colecciones")
+        elif dup and tipo == '9' and len(values['libros_colecciones_id']) >= can:
+            self.buscar_datos_erroneso(values['libros_colecciones_id'])
+        elif not dup and tipo == '9':
+            self.buscar_datos_erroneso(values['libros_colecciones_id'])
+
+    def buscar_datos_erroneso(self, bienes):
+        for b in bienes:
+            if b[2]['dato_icorrecto']:
+                raise ValidationError("Corregir los Bienes Marcados en ROJO")

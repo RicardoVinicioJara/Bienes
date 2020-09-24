@@ -433,42 +433,42 @@
                                 <group colspan="4" attrs="{'invisible': [('tipo_herencia', '!=', '2')]}">
                                     <separator string='Vehiculos' colspan="4"/>
                                     <field attrs="{'readonly': [('duplicacion_datos_catidad', '=', True)]}"
-                                           name="vehiculos_id" colspan="4" nolabel="1" select="0"/>
+                                           name="vehiculos_id" colspan="4" nolabel="1" select="0"  force_save="1"/>
                                 </group>
                                 <group colspan="4" attrs="{'invisible': [('tipo_herencia', '!=', '3')]}">
                                     <separator string='Inmueble' colspan="4"/>
                                     <field attrs="{'readonly': [('duplicacion_datos_catidad', '=', True)]}"
-                                           name="inmueble_id" colspan="4" nolabel="1" select="0"/>
+                                           name="inmueble_id" colspan="4" nolabel="1" select="0"  force_save="1"/>
                                 </group>
                                 <group colspan="4" attrs="{'invisible': [('tipo_herencia', '!=', '4')]}">
                                     <separator string='Animal Vivo' colspan="4"/>
                                     <field attrs="{'readonly': [('duplicacion_datos_catidad', '=', True)]}"
-                                           name="animal_vivo_id" colspan="4" nolabel="1" select="0"/>
+                                           name="animal_vivo_id" colspan="4" nolabel="1" select="0"  force_save="1"/>
                                 </group>
                                 <group colspan="4" attrs="{'invisible': [('tipo_herencia', '!=', '5')]}">
                                     <separator string='Bosques Plantas' colspan="4"/>
                                     <field attrs="{'readonly': [('duplicacion_datos_catidad', '=', True)]}"
-                                           name="bosques_plantas_id" colspan="4" nolabel="1" select="0"/>
+                                           name="bosques_plantas_id" colspan="4" nolabel="1" select="0"  force_save="1"/>
                                 </group>
                                 <group colspan="4" attrs="{'invisible': [('tipo_herencia', '!=', '6')]}">
                                     <separator string='Pinacoteca' colspan="4"/>
                                     <field attrs="{'readonly': [('duplicacion_datos_catidad', '=', True)]}"
-                                           name="pinacoteca_id" colspan="4" nolabel="1" select="0"/>
+                                           name="pinacoteca_id" colspan="4" nolabel="1" select="0"  force_save="1"/>
                                 </group>
                                 <group colspan="4" attrs="{'invisible': [('tipo_herencia', '!=', '7')]}">
                                     <separator string='Escultura' colspan="4"/>
                                     <field attrs="{'readonly': [('duplicacion_datos_catidad', '=', True)]}"
-                                           name="escultura_id" colspan="4" nolabel="1" select="0"/>
+                                           name="escultura_id" colspan="4" nolabel="1" select="0"  force_save="1"/>
                                 </group>
                                 <group colspan="4" attrs="{'invisible': [('tipo_herencia', '!=', '8')]}">
                                     <separator string='Arqueologia' colspan="4"/>
                                     <field attrs="{'readonly': [('duplicacion_datos_catidad', '=', True)]}"
-                                           name="arqueologia_id" colspan="4" nolabel="1" select="0"/>
+                                           name="arqueologia_id" colspan="4" nolabel="1" select="0"  force_save="1"/>
                                 </group>
                                 <group colspan="4" attrs="{'invisible': [('tipo_herencia', '!=', '9')]}">
                                     <separator string='Libros y Colecciones' colspan="4"/>
                                     <field attrs="{'readonly': [('duplicacion_datos_catidad', '=', True)]}"
-                                           name="libros_colecciones_id" colspan="4" nolabel="1" select="0"/>
+                                           name="libros_colecciones_id" colspan="4" nolabel="1" select="0"  force_save="1"/>
                                 </group>
                                 <h2 class="o_horizontal_separator">Observaciones</h2>
                                 <field name="observaciones" colspan="4" nolabel="1" select="0"/>
