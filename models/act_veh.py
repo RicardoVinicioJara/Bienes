@@ -48,6 +48,8 @@ class Vehiculos(models.Model):
 
 
 
+
+
 class VehiculosClase(models.Model):
     _name = 'act.veh.vehiculosclase'
     _description = 'Activos - Bienes - Hehiculos - Clase'

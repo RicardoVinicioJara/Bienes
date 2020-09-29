@@ -332,32 +332,33 @@ function validar_direccions() {
 
 
 function validar_inmueble() {
-    //Marca //Modelo //Serie //Color
-    $('[name="marca"],[name="modelo"],[name="serie"],[name="pro_reg_municipio"],[name="clave_catastral"],[name="num_predio"]').keyup(function () {
-        $('[name="marca"]').removeClass('o_field_invalid');
-        $('[name="modelo"]').removeClass('o_field_invalid');
-        $('[name="serie"]').removeClass('o_field_invalid');
+    $("[name='dato_icorrecto'] .custom-control-input").prop("checked", true);
+
+    $('[name="identificación"],[name="caracteristicas_unicas"],[name="num_escritura"],[name="pro_reg_municipio"],[name="clave_catastral"],[name="num_predio"]').keyup(function () {
+        $('[name="identificación"]').removeClass('o_field_invalid');
+        $('[name="caracteristicas_unicas"]').removeClass('o_field_invalid');
+        $('[name="num_escritura"]').removeClass('o_field_invalid');
         $('[name="pro_reg_municipio"]').removeClass('o_field_invalid');
         $('[name="clave_catastral"]').removeClass('o_field_invalid');
         $('[name="num_predio"]').removeClass('o_field_invalid');
 
-        txt = $("[name='marca']").val()
-        if (txt.length < 2) {
-            $("[name='marca']").addClass('o_field_invalid');
-        }
-        $("[name='marca']").val(txt.toUpperCase());
-
-        txt = $("[name='modelo']").val()
-        if (txt.length < 2) {
-            $("[name='modelo']").addClass('o_field_invalid');
-        }
-        $("[name='modelo']").val(txt.toUpperCase());
-
-        txt = $("[name='serie']").val()
+        txt = $("[name='identificación']").val()
         if (txt.length < 4) {
-            $("[name='serie']").addClass('o_field_invalid');
+            $("[name='identificación']").addClass('o_field_invalid');
         }
-        $("[name='serie']").val(txt.toUpperCase());
+        $("[name='identificación']").val(txt.toUpperCase());
+
+        txt = $("[name='caracteristicas_unicas']").val()
+        if (txt.length < 4) {
+            $("[name='caracteristicas_unicas']").addClass('o_field_invalid');
+        }
+        $("[name='caracteristicas_unicas']").val(txt.toUpperCase());
+
+        txt = $("[name='num_escritura']").val()
+        if (txt.length < 4) {
+            $("[name='num_escritura']").addClass('o_field_invalid');
+        }
+        $("[name='num_escritura']").val(txt.toUpperCase());
 
         txt = $("[name='pro_reg_municipio']").val()
         if (txt.length < 4) {
@@ -366,16 +367,102 @@ function validar_inmueble() {
         $("[name='pro_reg_municipio']").val(txt.toUpperCase());
 
         txt = $("[name='clave_catastral']").val()
-        if (txt.length < 4) {
+        if (txt.length < 3) {
             $("[name='clave_catastral']").addClass('o_field_invalid');
         }
         $("[name='clave_catastral']").val(txt.toUpperCase());
 
         txt = $("[name='num_predio']").val()
-        if (txt.length < 4) {
+        if (txt.length < 2) {
             $("[name='num_predio']").addClass('o_field_invalid');
         }
         $("[name='num_predio']").val(txt.toUpperCase());
     });
+
+    //Solo letras
+    $('[name="pro_reg_municipio"],[name="beneficiario"]').bind('keydown', function (event) {
+        if (event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode >= 96 && event.keyCode <= 105) {
+            return false
+        }
+    });
+    //Solo Numeros
+    $('[name="anio_avaluo"],[name="num_pisos"]').bind('keydown', function (event) {
+        if (event.keyCode != 8 && event.keyCode != 46) {
+            if (event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode >= 96 && event.keyCode <= 105) {
+                return true
+            } else {
+                return false
+            }
+        }
+    })
+
+    //Solo Numeros y -
+    $('[name="clave_catastral"],[name="num_predio"],[name="num_escritura"],[name="notari"]').bind('keydown', function (event) {
+        if (event.keyCode != 8 && event.keyCode != 46 && event.keyCode != 189 && event.keyCode != 109) {
+            if (event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode >= 96 && event.keyCode <= 105) {
+                return true
+            } else {
+                return false
+            }
+        }
+    });
+    //Solo numero y , O .
+    $('[name="valor_avaluo"],[name="area_predio"],[name="area_contruccion"],[name="canon_actua"]').bind('keydown', function (event) {
+        if (event.keyCode != 8 && event.keyCode != 46 && event.keyCode != 110 && event.keyCode != 190 && event.keyCode != 188) {
+            if (event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode >= 96 && event.keyCode <= 105) {
+                return true
+            } else {
+                return false
+            }
+        }
+
+    });
+
+
+    $(".modal-dialog .modal-content .modal-footer .btn-primary").on("click", function (event) {
+            var msg = "Correquir los Siquietes Campos <br>"
+            $("[name='dato_icorrecto'] .custom-control-input").prop("checked", false);
+
+            msg += validarCantidad('identificación', "Identificación", 4)
+            msg += validarCantidad('caracteristicas_unicas', 'Características únicas', 4)
+            msg += validarCantidad('pro_reg_municipio', 'Propietario registrado en el Municipio', 4)
+            msg += validarCantidad('clave_catastral', 'Clave Catastral', 3)
+            msg += validarCantidad('num_predio', 'Numero de predio', 2)
+            msg += validarMayorMonetary('valor_avaluo', 'Valor avalúo Municipal')
+            msg += validarCantidad('anio_avaluo', 'Año avalúo Municipal', 4)
+            msg += validarMayorCero('area_predio', 'Área del Predio m2')
+            msg += validarMayorCero('area_contruccion', 'Área de Construcción m2')
+            msg += validarCantidad('num_escritura', 'Número de escritura', 4)
+
+            if (msg != "Correquir los Siquietes Campos <br>") {
+                msg += " <br> > Tener cuidado con los espacion en Blanco "
+                mensaje_error(msg)
+                $("[name='dato_icorrecto'] .custom-control-input").prop("checked", true);
+            }
+        }
+    );
+
 }
 
+
+function validarCantidad(_nombre, descripcion, cantidad) {
+    _nombre = "[name='" + _nombre + "']"
+    if ($(_nombre).val().trim().length < cantidad) {
+        return "   * " + descripcion + " debe contener mas caracteres <br> "
+    }
+    return ""
+}
+
+function validarMayorCero(_nombre, descripcion) {
+    _nombre = "[name='" + _nombre + "']"
+    if (parseFloat($(_nombre).val().toString()) < 1) {
+        return "   * " + descripcion + " debe ser mayor a cero <br> "
+    }
+    return ""
+}function validarMayorMonetary(_nombre, descripcion) {
+    _nombre = "[name='" + _nombre + "'] .o_input"
+    if (parseFloat($(_nombre).val().toString()) < 1) {
+        return "   * " + descripcion + " debe ser mayor a cero <br> "
+    }
+    return ""
+}

@@ -17,14 +17,16 @@ class AnimalVivo(models.Model):
     #_rec_name = ''
     codigo = fields.Char('Código', required=True, size=4, default=lambda self: compute_default_codigo(self,4) , help='Codigo de Animal Vivo')
 
-    serie = fields.Char('Serie', required=True, help='Serie del Bien')
-    modelo = fields.Char('Modelo', required=True, help='Modelo del Bien')
-    marca = fields.Char('Marca', required=True, help='Marca del bien')
+    serie = fields.Char('Identificación', required=True, help='Serie del Bien')
+    modelo = fields.Char('Características únicas', required=True, help='Modelo del Bien')
+    marca = fields.Char('Raza', required=True, help='Marca del bien')
 
     sexo = fields.Selection([('M', 'Macho'),('H','Hembra')], required=True, string='Sexo', help='Sexo del animal')
     fecha_nacimineto = fields.Date('Fecha nacimiento', required = False, help='Fecha de nacimiento del animal')
     edad = fields.Char('Edad', required = True, help='Edad')
     peso = fields.Float('Peso',digits=(6,2), required=False, help='Peso')
     num_arete = fields.Char('Número de arete', required = True, help='Numero de arete')
+
+    dato_icorrecto = fields.Boolean("Dato Icorrecto", default=False)
 
 

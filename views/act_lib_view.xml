@@ -38,7 +38,7 @@
         <field name="model">act.lib.libroscolecciones</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree string="libroscolecciones">
+            <tree string="libroscolecciones" decoration-danger="dato_icorrecto == True">
                 <field name="codigo"/>
                 <field name="titulo"/>
                 <field name="autor_id"/>
@@ -46,6 +46,7 @@
                 <field name="fecha_edicion"/>
                 <field name="num_edicion"/>
                 <field name="clasifiacion_biografia"/>
+                <field name="dato_icorrecto" invisible="1"/>
             </tree>
         </field>
     </record>

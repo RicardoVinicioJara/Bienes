@@ -29,6 +29,8 @@ class LibrosColecciones(models.Model):
     num_edicion = fields.Integer('Numero Edición', required = True, help='Numero de Edición')
     clasifiacion_biografia = fields.Many2one('act.lib.clasifiacionbiografia', string='Clasificación Bibliográfica', required = False, help='Clasificación Bibliográfica')
 
+    dato_icorrecto = fields.Boolean("Dato Icorrecto", default=False)
+
 
 class Editorial(models.Model):
     _name = 'act.lib.editorial'

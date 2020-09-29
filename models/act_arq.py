@@ -35,6 +35,8 @@ class Arqueologia(models.Model):
     porcetaje_integridad = fields.Float('Porcetaje de Integridad',digits=(3,2), required=False, help='Porcetaje de Integridad')
     porcentaje_conservacion = fields.Float('Porcetaje de conservación',digits=(3,2), required=False, help='Porcetaje de conservación ')
 
+    dato_icorrecto = fields.Boolean("Dato Icorrecto", default=False)
+
 
 class Cultura(models.Model):
     _name = 'act.arq.cultura'

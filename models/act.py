@@ -2,11 +2,7 @@
 ##############################################################################
 #   SICAF - Copyright  2019
 ##############################################################################
-from email.policy import default
-from logging import warning
-
 from odoo import api, fields, models
-from datetime import datetime
 
 
 def compute_default_codigo(self, tam):
@@ -91,7 +87,7 @@ class Cabacera(models.Model):
     fecha_ingreso = fields.Date('Fecha ingreso', required=True, default=fields.Date.today,
                                 help='Fecha de ingreso del Bien de Larga Duración')
     forma_ingreso = fields.Selection([('I', 'Individual'), ('M', 'Masivo ')], string='Forma de Ingreso', default='I',
-                                     required=True, readonly=True, help='Forma de Ingreso del Bien')
+                                     required=True, readonly=True, help='Forma de Ingreso del Bien', store=True)
 
     bodega_id = fields.Many2one('act.bodega', string='Bodega', required=True, help='Bodega')
     bodega_cod = fields.Char(related='bodega_id.codigo', string='Codigo de Bodega', store=False, readonly=True,

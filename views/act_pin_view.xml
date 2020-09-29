@@ -47,7 +47,7 @@
         <field name="model">act.pin.pinacoteca</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree string="pinacoteca">
+            <tree string="pinacoteca" decoration-danger="dato_icorrecto == True">
                 <field name="codigo"/>
                 <field name="nombre"/>
                 <field name="epoca_id"/>
@@ -60,6 +60,7 @@
                 <field name="procedencia"/>
                 <field name="estado_conservacion"/>
                 <field name="estado_integridad"/>
+                <field name="dato_icorrecto" invisible="1"/>
             </tree>
         </field>
     </record>

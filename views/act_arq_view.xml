@@ -47,7 +47,7 @@
         <field name="model">act.arq.arqueologia</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree string="arqueologia">
+            <tree string="arqueologia" decoration-danger="dato_icorrecto == True">
                 <field name="codigo"/>
                 <field name="nombre"/>
                 <field name="ubicacion"/>
@@ -61,6 +61,8 @@
                 <field name="decoracion_id"/>
                 <field name="porcetaje_integridad"/>
                 <field name="porcentaje_conservacion"/>
+                <field name="dato_icorrecto" invisible="1"/>
+
             </tree>
         </field>
     </record>

@@ -11,7 +11,7 @@
         <field name="name">bosquesplantas.form</field>
         <field name="model">act.bos.bosquesplantas</field>
         <field name="arch" type="xml">
-            <form string="bosquesplantas">
+            <form string="bosquesplantas" >
                 <group col="4" colspan="2">
                     <field name="marca" select="0"/>
                     <field name="modelo" select="0"/>
@@ -34,12 +34,13 @@
         <field name="model">act.bos.bosquesplantas</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree string="bosquesplantas">
+            <tree string="bosquesplantas" decoration-danger="dato_icorrecto == True">
                 <field name="codigo"/>
                 <field name="tipo_cultivo_id"/>
                 <field name="aera_siembra"/>
                 <field name="finalidad_cultivo"/>
                 <field name="fecha_siembra"/>
+                <field name="dato_icorrecto" invisible="1"/>
             </tree>
         </field>
     </record>

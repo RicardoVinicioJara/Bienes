@@ -44,9 +44,9 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree string="vehiculos" decoration-danger="dato_icorrecto == True">
-                <field name="marca" select="0"/>
-                <field name="modelo" select="0"/>
-                <field name="serie" select="0"/>
+                <field name="marca" />
+                <field name="modelo" />
+                <field name="serie"/>
                 <field name="placa"/>
                 <field name="anio_fabricacion"/>
                 <field name="tipo_vehiculo_id"/>

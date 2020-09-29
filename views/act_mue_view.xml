@@ -43,9 +43,9 @@
         <field name="arch" type="xml">
             <tree string="bienesmuebles" decoration-danger="dato_icorrecto == True">
                 <field name="codigo" invisible="1"/>
-                <field name="marca" select="0"/>
-                <field name="modelo" select="0"/>
-                <field name="serie" select="0"/>
+                <field name="marca" />
+                <field name="modelo"/>
+                <field name="serie" />
                 <field name="material_id"/>
                 <field name="color"/>
                 <field name="largo"/>

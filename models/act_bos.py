@@ -27,6 +27,8 @@ class BosquesPlantas(models.Model):
     aera_siembra = fields.Float('Área de Siembra m2',digits=(6,2), required=True, help='Área de Siembra m2')
     finalidad_cultivo = fields.Selection( [('C','Comercio'),('E','Explotación'),('O','Otros')], string='Finalidad del cultivo', required = True, help='Finalidad del cultivo')
 
+    dato_icorrecto = fields.Boolean("Dato Icorrecto", default=False)
+
 
 
 class TipoCultivo(models.Model):

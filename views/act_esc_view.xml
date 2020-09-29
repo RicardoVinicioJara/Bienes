@@ -45,7 +45,7 @@
         <field name="model">act.esc.escultura</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree string="escultura">
+            <tree string="escultura" decoration-danger="dato_icorrecto == True">
                 <field name="codigo"/>
                 <field name="registro"/>
                 <field name="epoca_id"/>
@@ -58,6 +58,7 @@
                 <field name="inscripciones"/>
                 <field name="fecha_realizacion"/>
                 <field name="fecha_procedencia"/>
+                <field name="dato_icorrecto" invisible="1"/>
 
             </tree>
         </field>

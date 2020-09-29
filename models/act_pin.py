@@ -34,6 +34,8 @@ class Pinacoteca(models.Model):
     estado_conservacion = fields.Many2one('act.pin.conservacion', string='Estado de Conservación', required = True, help='Estado de Conservación')
     estado_integridad = fields.Many2one('act.pin.integridad', string='Estado de Integridad', required = True, help='Estado de Integridad')
 
+    dato_icorrecto = fields.Boolean("Dato Icorrecto", default=False)
+
 
 class Epoca(models.Model):
     _name = 'act.pin.epoca'

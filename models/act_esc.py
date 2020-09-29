@@ -33,6 +33,8 @@ class Escultura(models.Model):
     fecha_realizacion = fields.Date('Fecha de realización', required=False, help='Fecha de realización')
     fecha_procedencia = fields.Date('Fecha de requisición o procedencia', required= False, help='Fecha de requisición o procedencia')
 
+    dato_icorrecto = fields.Boolean("Dato Icorrecto", default=False)
+
 
 class Material(models.Model):
     _name = 'act.esc.material'

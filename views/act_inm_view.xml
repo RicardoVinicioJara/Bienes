@@ -13,10 +13,10 @@
             <form string="inmueble">
                 <group col="4" colspan="2">
                     <group colspan="2">
-                        <field name="marca" select="0"/>
-                        <field name="modelo" select="0"/>
-                        <field name="serie" select="0"/>
-                        <field name="pro_reg_municipio" select="2"/>
+                        <field name="identificación" select="0"/>
+                        <field name="caracteristicas_unicas" select="0"/>
+                        <field name="material_contruccion" select="0"/>
+                        <field name="pro_reg_municipio" select="0"/>
                         <field name="clave_catastral" select="0"/>
                         <field name="num_predio" select="0"/>
                         <field name="valor_avaluo" select="0"/>
@@ -28,13 +28,14 @@
                         <field name="area_predio" select="0"/>
                         <field name="area_contruccion" select="0"/>
                         <field name="num_escritura" select="0"/>
-                        <field name="fecha_escritura" select="0"/>
+                        <field name="fecha_escritura" select="0" options="{'datepicker':{'maxDate': 'now'}}"/>
                         <field name="notari" select="0"/>
                         <field name="beneficiario" select="0"/>
-                        <field name="fecha_contrato" select="0"/>
-                        <field name="fecha_duracion" select="0"/>
+                        <field name="fecha_contrato" options="{'datepicker':{'maxDate': 'now'}}" select="0"/>
+                        <field name="fecha_duracion" options="{'datepicker':{'maxDate': 'now'}}" select="0"/>
                         <field name="canon_actua" select="0"/>
-                        <field name="codigo" invisible="1" select="1"/>
+                        <field name="codigo" invisible="1"/>
+                        <field name="dato_icorrecto" invisible="1" attrs="{'required': True}"  force_save="1" />
                     </group>
                 </group>
                 <script type="text/javascript">
@@ -51,24 +52,16 @@
         <field name="model">act.inm.inmueble</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree string="inmueble">
-                <field name="codigo"/>
-                <field name="pro_reg_municipio"/>
-                <field name="clave_catastral"/>
-                <field name="num_predio"/>
-                <field name="valor_avaluo"/>
-                <field name="anio_avaluo"/>
-                <field name="area_predio"/>
-                <field name="area_contruccion"/>
-                <field name="num_pisos"/>
-                <field name="num_escritura"/>
-                <field name="fecha_escritura"/>
-                <field name="notari"/>
-                <field name="beneficiario"/>
-                <field name="fecha_contrato"/>
-                <field name="fecha_duracion"/>
-                <field name="canon_actua"/>
-                <field name="direccion_id"/>
+            <tree string="inmueble" decoration-danger="dato_icorrecto == True" >
+                <field name="identificación" />
+                <field name="caracteristicas_unicas" />
+                <field name="material_contruccion" />
+                <field name="clave_catastral" />
+                <field name="num_predio" />
+                <field name="num_escritura"  />
+                <field name="num_escritura" />
+                <field name="direccion_id"  invisible="1"/>
+                <field name="dato_icorrecto" invisible="1"/>
             </tree>
         </field>
     </record>
