@@ -17,9 +17,9 @@ class AnimalVivo(models.Model):
     #_rec_name = ''
     codigo = fields.Char('Código', required=True, size=4, default=lambda self: compute_default_codigo(self,4) , help='Codigo de Animal Vivo')
 
-    serie = fields.Char('Identificación', required=True, help='Serie del Bien')
-    modelo = fields.Char('Características únicas', required=True, help='Modelo del Bien')
-    marca = fields.Char('Raza', required=True, help='Marca del bien')
+    ideftificacion = fields.Char('Identificación', required=True, help='Identificación del Bien')
+    caratesiticas_unicas = fields.Char('Características únicas', required=True, help='Características unicas')
+    raza = fields.Many2one('act.ani.raza', string='Raza', required=True, help='Raza del animal')
 
     sexo = fields.Selection([('M', 'Macho'),('H','Hembra')], required=True, string='Sexo', help='Sexo del animal')
     fecha_nacimineto = fields.Date('Fecha nacimiento', required = False, help='Fecha de nacimiento del animal')
@@ -28,5 +28,20 @@ class AnimalVivo(models.Model):
     num_arete = fields.Char('Número de arete', required = True, help='Numero de arete')
 
     dato_icorrecto = fields.Boolean("Dato Icorrecto", default=False)
+
+
+class Raza(models.Model):
+    _name = 'act.ani.raza'
+    _description = 'Activos - Bienes - Aminam Vivo - Raza'
+    #_rec_name = ''
+    codigo = fields.Char('Código', required=True, size=4, default=lambda self: compute_default_codigo(self,4) , help='Codigo del Raza')
+    raza = fields.Char('Raza', required=True, help='Raza')
+    descripcion = fields.Char('Descripcion', required=True, help='Descripcion de la Raza')
+
+    def name_get(self):
+        result = []
+        for record in self:
+            result.append((record.id, record.raza))
+        return result
 
 

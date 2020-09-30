@@ -15,18 +15,17 @@
                 <group col="4" colspan="2">
                     <group colspan="2">
                         <field name="marca"   select="0" />
-                        <field name="modelo" select="0"/>
+                        <field name="caratesiticas_unicas" select="0"/>
                         <field name="serie" select="0"/>
-
-                        <field name="titulo" select="0"/>
                         <field name="registro" select="2"/>
+                        <field name="titulo" select="0"/>
                         <field name="epoca_id" select="0"/>
                         <field name="autor_id" select="0"/>
-                        <field name="material_id" select="0"/>
-                        <field name="tecnicas_id" select="0"/>
                         <field name="codigo" invisible="1" select="1"/>
                     </group>
                     <group colspan="2">
+                        <field name="material_id" select="0"/>
+                        <field name="tecnicas_id" select="0"/>
                         <field name="ancho" select="0"/>
                         <field name="largo" select="0"/>
                         <field name="inscripciones" select="0"/>

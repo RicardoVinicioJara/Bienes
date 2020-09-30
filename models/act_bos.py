@@ -17,9 +17,9 @@ class BosquesPlantas(models.Model):
     #_rec_name = ''
     codigo = fields.Char('Código', required=True, size=4, default=lambda self: compute_default_codigo(self,4) , help='Codigo del Bosques y Plantas')
 
-    serie = fields.Char('Serie', required=True, help='Serie del Bien')
-    modelo = fields.Char('Modelo', required=True, help='Modelo del Bien')
-    marca = fields.Char('Marca', required=True, help='Marca del bien')
+    ideftificacion = fields.Char('Identificación', required=True, help='Identificación del Bien')
+    caratesiticas_unicas = fields.Char('Características únicas', required=True, help='Características unicas')
+    raza = fields.Char('Raza | Otros', required=True, help='Raza / Otros')
 
 
     tipo_cultivo_id = fields.Many2one('act.bos.tipocultivo', string='Tipo Cultivo', required=True, help='Tipo cultivo')

@@ -15,7 +15,7 @@
                 <group col="4" colspan="2">
 
                     <field name="marca" select="0"/>
-                    <field name="modelo" select="0"/>
+                    <field name="caratesiticas_unicas" select="0"/>
                     <field name="serie" select="0"/>
 
 
@@ -39,7 +39,10 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree string="libroscolecciones" decoration-danger="dato_icorrecto == True">
-                <field name="codigo"/>
+                <field name="codigo" invisible="1"/>
+                <field name="marca"/>
+                <field name="caratesiticas_unicas"/>
+                <field name="serie"/>
                 <field name="titulo"/>
                 <field name="autor_id"/>
                 <field name="editorial_id"/>

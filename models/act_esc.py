@@ -18,7 +18,7 @@ class Escultura(models.Model):
     codigo = fields.Char('Código', required=True, size=4, default=lambda self: compute_default_codigo(self,4) , help='Codigo del Detalle')
 
     serie = fields.Char('Serie', required=True, help='Serie del Bien')
-    modelo = fields.Char('Modelo', required=True, help='Modelo del Bien')
+    caratesiticas_unicas = fields.Char('Características únicas', required=True, help='Características unicas')
     marca = fields.Char('Marca', required=True, help='Marca del bien')
 
     registro = fields.Char('Registro Patrimonial', required = True, help='Registro Patrimonial')
@@ -47,7 +47,7 @@ class Material(models.Model):
     def name_get(self):
         result = []
         for record in self:
-            result.append((record.id, str(record.material) + " | " + str(record.decripcion)))
+            result.append((record.id, str(record.material)))
         return result
 
 

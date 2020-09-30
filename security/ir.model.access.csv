@@ -9,6 +9,7 @@
 "access_act_inm_inmueble","act.inm.Inmueble","model_act_inm_inmueble","base.group_user",1,1,1,1
 "access_act_inm_direccion","act.inm.Direccion","model_act_inm_direccion","base.group_user",1,1,1,1
 "access_act_ani_animalvivo","act.ani.AnimalVivo","model_act_ani_animalvivo","base.group_user",1,1,1,1
+"access_act_ani_raza","act.ani.raza","model_act_ani_raza","base.group_user",1,1,1,1
 "access_act_bos_bosquesplantas","act.bos.BosquesPlantas","model_act_bos_bosquesplantas","base.group_user",1,1,1,1
 "access_act_pin_pinacoteca","act.pin.Pinacoteca","model_act_pin_pinacoteca","base.group_user",1,1,1,1
 "access_act_pin_epoca","act.pin.Epoca","model_act_pin_epoca","base.group_user",1,1,1,1

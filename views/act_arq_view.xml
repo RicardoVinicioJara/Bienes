@@ -14,19 +14,17 @@
             <form string="arqueologia">
                 <group col="4" colspan="2">
                     <group colspan="2">
-
                         <field name="marca" select="0"/>
-                        <field name="modelo" select="0"/>
+                        <field name="caratesiticas_unicas" select="0"/>
                         <field name="serie" select="0"/>
-                        
                         <field name="nombre" select="2"/>
                         <field name="ubicacion" select="0"/>
                         <field name="precedencia" select="0"/>
                         <field name="material_id" select="0"/>
                         <field name="tenicnicaselb_id" select="0"/>
-                        <field name="cultura_id" select="0"/>
                     </group>
                     <group colspan="2">
+                        <field name="cultura_id" select="0"/>
                         <field name="ancho" select="0"/>
                         <field name="largo" select="0"/>
                         <field name="marfologia_id" select="0"/>
@@ -48,21 +46,23 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree string="arqueologia" decoration-danger="dato_icorrecto == True">
-                <field name="codigo"/>
+                <field name="codigo" invisible="1"/>
+                <field name="marca"/>
+                <field name="caratesiticas_unicas"/>
+                <field name="serie"/>
                 <field name="nombre"/>
-                <field name="ubicacion"/>
+                <field name="ubicacion" invisible="1"/>
                 <field name="precedencia"/>
                 <field name="material_id"/>
                 <field name="cultura_id"/>
-                <field name="ancho"/>
-                <field name="largo"/>
-                <field name="marfologia_id"/>
-                <field name="tenicnicaselb_id"/>
-                <field name="decoracion_id"/>
+                <field name="ancho" invisible="1"/>
+                <field name="largo" invisible="1"/>
+                <field name="marfologia_id" invisible="1"/>
+                <field name="tenicnicaselb_id" invisible="1"/>
+                <field name="decoracion_id" invisible="1"/>
                 <field name="porcetaje_integridad"/>
                 <field name="porcentaje_conservacion"/>
                 <field name="dato_icorrecto" invisible="1"/>
-
             </tree>
         </field>
     </record>

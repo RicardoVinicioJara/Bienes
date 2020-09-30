@@ -2,6 +2,8 @@
 ##############################################################################
 #   SICAF - Copyright  2019
 ##############################################################################
+from email.policy import default
+
 from odoo import api, fields, models
 
 
@@ -127,7 +129,7 @@ class Cabacera(models.Model):
 
     cantidad = fields.Integer('Cantidad', help='Catidad de producto', store=True, default=3)
     org_ingreso = fields.Selection([('M', 'Matriz'), ('C', 'Compra'), ('D', 'Donacion')], string='Origen del Ingreso',
-                                   required=True, help='Origen del Ingreso', default='C')
+                                   required=True, help='Origen del Ingreso', default='C', readonly=True)
     tipo_respaldo_id = fields.Many2one('act.tiporespaldo', string='Tipo Respaldo', required=True,
                                        help='Tipo de Documento de Respaldo')
     clase_respaldo_id = fields.Many2one('act.claserespaldo', string='Clase Respaldo', required=True,
@@ -157,12 +159,14 @@ class Cabacera(models.Model):
     valor_contable = fields.Monetary('Valor Contable', default=0.0, required=True, help='Valor Contable')
     valor_residual = fields.Monetary('Valor residual', default=0.0, required=True, help='Valor Residual')
     valor_libros = fields.Monetary('Valor en libros', default=0.0, required=True, help='Valor en libros')
-    valor_dep_acumulada = fields.Monetary('Valor acumulado', default=0.0, required=True,
+    valor_dep_acumulada = fields.Monetary('Valor Depreciación Acumulada', default=0.0, required=True,
                                           help='Valor Depreciación Acumulada')
-    fecha_u_depreciacion = fields.Date('Fecha de la última depreciación')
+    fecha_u_depreciacion = fields.Date('Fecha de la última depreciación', default=fields.Date.today )
+
     vida_util_id = fields.Many2one('act.vidautil', string='Vida Util', help='Vida Util', required=False)
     vida_anios = fields.Char('Números de años', help='Años de Vida Util', readonly=True)
-    vida_util_num = fields.Integer("Digite el numero de años", help='Digite el numero de años')
+    vida_util_num = fields.Integer("Unidades | Produccion estimadas", help='Digite el numero de años', default=False)
+    cambiar_num_vida = fields.Boolean("No puedo definir: Unidades de Tiempo | Producción Estimadas", default=False)
 
     observaciones = fields.Text('Observaciones', required=False, help='OBSERVACIONES')
 

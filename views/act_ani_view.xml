@@ -14,17 +14,16 @@
             <form string="animalvivo">
                 <group col="4" colspan="2">
                     <group colspan="2">
+                        <field name="ideftificacion" select="0"/>
+                        <field name="caratesiticas_unicas" select="0"/>
+                        <field name="raza" select="0"/>
                         <field name="sexo" select="2"/>
+                    </group>
+                    <group colspan="2">
                         <field name="edad" select="0"/>
                         <field name="num_arete" select="0"/>
                         <field name="codigo" invisible="1" select="1"/>
-
-                        <field name="marca"   select="0" />
-                        <field name="modelo" select="0"/>
-                        <field name="serie" select="0"/>
-                    </group>
-                    <group colspan="2">
-                        <field name="fecha_nacimineto" select="0"/>
+                        <field name="fecha_nacimineto" select="0" options="{'datepicker':{'maxDate': 'now'}}"/>
                         <field name="peso" select="0"/>
                     </group>
                 </group>
@@ -40,7 +39,10 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree string="animalvivo" decoration-danger="dato_icorrecto == True">
-                <field name="codigo"/>
+                <field name="codigo" invisible="1"/>
+                <field name="ideftificacion"/>
+                <field name="caratesiticas_unicas"/>
+                <field name="raza"/>
                 <field name="sexo"/>
                 <field name="fecha_nacimineto"/>
                 <field name="edad"/>
@@ -80,5 +82,60 @@
 
     <!-- MENÚ SECUNDARIO: ANIMALVIVO
     <menuitem name="ANIMALVIVO" id="menu_act_ani_animalvivo" action="action_act_ani_animalvivo" parent="men_sec_act_ani"/> -->
+
+
+        <!-- VISTA FORM: MATERIAL -->
+    <record model="ir.ui.view" id="view_act_ani_raza_form">
+        <field name="name">material.form</field>
+        <field name="model">act.ani.raza</field>
+        <field name="arch" type="xml">
+            <form string="material">
+                <group col="4" colspan="2">
+                    <field name="raza" select="2"/>
+                    <field name="descripcion" select="0"/>
+                    <field name="codigo" invisible="1" select="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: MATERIAL -->
+
+    <!-- VISTA TREE: MATERIAL -->
+    <record model="ir.ui.view" id="view_act_ani_raza_tree">
+        <field name="name">material.tree</field>
+        <field name="model">act.ani.raza</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="material">
+                <field name="codigo"/>
+                <field name="raza"/>
+                <field name="descripcion"/>
+            </tree>
+        </field>
+    </record>
+    <!-- FIN VISTA TREE: MATERIAL -->
+
+    <!-- VISTA PIVOT: MATERIAL -->
+    <record model="ir.ui.view" id="view_act_ani_raza_pivot">
+        <field name="name">material.tree</field>
+        <field name="model">act.ani.raza</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <pivot string="material">
+                <field name="codigo"/>
+                <field name="raza"/>
+                <field name="descripcion"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- FIN VISTA PIVOT: MATERIAL -->
+
+    <!-- MODELO: MATERIAL -->
+    <record model="ir.actions.act_window" id="action_act_ani_raza">
+        <field name="name">RAZA</field>
+        <field name="res_model">act.ani.raza</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+    <!-- FIN MODELO: MATERIAL -->
 
 </odoo>

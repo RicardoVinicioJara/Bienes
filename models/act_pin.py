@@ -18,7 +18,7 @@ class Pinacoteca(models.Model):
     codigo = fields.Char('Código', required=True, size=4, default=lambda self: compute_default_codigo(self,4) , help='Codigo del Detalle')
 
     serie = fields.Char('Serie', required=True, help='Serie del Bien')
-    modelo = fields.Char('Modelo', required=True, help='Modelo del Bien')
+    caratesiticas_unicas = fields.Char('Características únicas', required=True, help='Características unicas')
     marca = fields.Char('Marca', required=True, help='Marca del bien')
 
 
@@ -26,6 +26,7 @@ class Pinacoteca(models.Model):
     epoca_id = fields.Many2one('act.pin.epoca', string='Epoca', required = True, help='Epoca de la obra')
     pintura_id = fields.Many2one('act.pin.pintura', string='Pintura', required = True, help='Tipo  de la pintura')
     autor_id = fields.Many2one('act.pin.autor', string='Autor', required = True, help='Autor de la obra')
+    estilo = fields.Many2one('act.pin.estilo', string='Estilo', required = True, help='Estilo de la obra')
     ancho = fields.Float('Ancho de la obra',digits=(6,2), required=True)
     largo = fields.Float('Largo de la obra',digits=(6,2), required=True)
     artes_menores = fields.Many2one('act.pin.artesmenores', string='Artes Menores', required = True, help='Artes menores de la obra')
@@ -63,7 +64,7 @@ class Pintura(models.Model):
     def name_get(self):
         result = []
         for record in self:
-            result.append((record.id, str(record.pintura) + " | " + str(record.decripcion)))
+            result.append((record.id, str(record.pintura)))
         return result
 
 
@@ -94,7 +95,7 @@ class ArtesMenores(models.Model):
     def name_get(self):
         result = []
         for record in self:
-            result.append((record.id, str(record.artes) + " | " + str(record.decripcion)))
+            result.append((record.id, str(record.artes)))
         return result
 
 
@@ -109,7 +110,7 @@ class TecnicasDecorativas(models.Model):
     def name_get(self):
         result = []
         for record in self:
-            result.append((record.id, str(record.tecnicas) + " | " + str(record.decripcion)))
+            result.append((record.id, str(record.tecnicas)))
         return result
 
 
@@ -124,7 +125,7 @@ class Conservacion(models.Model):
     def name_get(self):
         result = []
         for record in self:
-            result.append((record.id, str(record.estado) + " | " + str(record.decripcion)))
+            result.append((record.id, str(record.estado)))
         return result
 
 
@@ -139,7 +140,7 @@ class Integridad(models.Model):
     def name_get(self):
         result = []
         for record in self:
-            result.append((record.id, str(record.estado) + " | " + str(record.decripcion)))
+            result.append((record.id, str(record.estado)))
         return result
 
 

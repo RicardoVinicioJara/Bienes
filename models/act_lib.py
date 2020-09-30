@@ -18,9 +18,8 @@ class LibrosColecciones(models.Model):
     codigo = fields.Char('Código', required=True, size=20,  default=lambda self: compute_default_codigo(self, 3), help='Codigo del Detalle')
 
     serie = fields.Char('Serie', required=True, help='Serie del Bien')
-    modelo = fields.Char('Modelo', required=True, help='Modelo del Bien')
+    caratesiticas_unicas = fields.Char('Características únicas', required=True, help='Características unicas')
     marca = fields.Char('Marca', required=True, help='Marca del bien')
-
 
     titulo = fields.Char('Título de la Obra', required = True, help='Título de la Obra')
     autor_id = fields.Many2one('act.pin.autor', string='Autor', required = True, help='Autor de la obra')
@@ -37,8 +36,8 @@ class Editorial(models.Model):
     _description = 'Activos - Bienes - Editorial'
     #_rec_name = ''
     codigo = fields.Char('Código', required=True, size=4, default=lambda self: compute_default_codigo(self,4) , help='Codigo')
-    nombre = fields.Char('Nombre', required = True, help='Nombre del la editorial')
-    datelles = fields.Char('Detalles',  required = False, help='Detalles de la editorial')
+    nombre = fields.Char('Nombre', required=True, help='Nombre del la editorial')
+    datelles = fields.Char('Detalles',  required=False, help='Detalles de la editorial')
 
     def name_get(self):
         result = []

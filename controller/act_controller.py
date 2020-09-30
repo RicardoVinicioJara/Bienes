@@ -32,7 +32,7 @@ class act_controlador(act.Cabacera):
     @api.onchange('item_padre')
     def _change_item_padre(self):
         self.valor_mostrar = 6
-        self.tipo_herencia = '3'
+        self.tipo_herencia = '9'
         a = self.item_padre
         if a:
             tipo = a.codigo
@@ -83,6 +83,7 @@ class act_controlador(act.Cabacera):
             else:
                 self.tipo_herencia = '1'
 
+            self.compra_id = False
             domain = [('certificado_ids.certificado_id.presupuesto_id.item_id.codigo', '=', codigo)]
             return {'domain': {'compra_id': domain}}
 
@@ -187,8 +188,19 @@ class act_controlador(act.Cabacera):
     @api.onchange('vida_util_id')
     def _change_vida_util(self):
         if self.vida_util_id:
-            self.vida_anios = self.vida_util_id.produccion
+            self.cambiar_num_vida = False
             self.valor_mostrar = 6
+            if self.certificado_id.presupuesto_id.enlace_id.codigo == '43':
+                self.vida_anios = self.vida_util_id.produccion
+            else:
+                self.vida_anios = self.vida_util_id.adm_proy_prog
+
+    @api.onchange('cambiar_num_vida')
+    def _change_cambiar_num_vida(self):
+        if self.vida_util_id:
+            if self.cambiar_num_vida:
+                self.vida_anios = self.vida_util_id.adm_proy_prog
+
 
     @api.onchange('duplicacion_datos', 'bienes_muebles_id', 'vehiculos_id', 'inmueble_id', 'animal_vivo_id',
                   'bosques_plantas_id', 'pinacoteca_id', 'escultura_id', 'arqueologia_id', 'libros_colecciones_id')
@@ -207,10 +219,11 @@ class act_controlador(act.Cabacera):
             self.pinacoteca_id = self.duplicacion_datos_val(self.pinacoteca_id)
         if self.tipo_herencia == '7':
             self.escultura_id = self.duplicacion_datos_val(self.escultura_id)
-        if self.tipo_herencia == '7':
+        if self.tipo_herencia == '8':
             self.arqueologia_id = self.duplicacion_datos_val(self.arqueologia_id)
-        if self.tipo_herencia == '7':
-            self.libros_colecciones_id = self.libros_colecciones_id(self.libros_colecciones_id)
+        if self.tipo_herencia == '9':
+            self.libros_colecciones_id = self.duplicacion_datos_val(self.libros_colecciones_id)
+
 
     def duplicacion_datos_val(self, bien):
         if self.duplicacion_datos:
@@ -228,6 +241,7 @@ class act_controlador(act.Cabacera):
                 self.duplicacion_datos_catidad = False
                 return bien
 
+
     # Bienes Muebles
     @api.onchange('bienes_muebles_id')
     def _onchange_lis_muebles(self):
@@ -237,6 +251,7 @@ class act_controlador(act.Cabacera):
                 if len(m.marca.strip()) < 2 or len(m.modelo.strip()) < 2 or len(m.serie.strip()) < 4 \
                         or len(m.color.strip()) < 4:
                     m.dato_icorrecto = True
+
 
     # Vehiculos
     @api.onchange('vehiculos_id')
@@ -249,6 +264,8 @@ class act_controlador(act.Cabacera):
                         or len(h.n_motor.strip()) < 4 or len(h.n_chasis.strip()) < 4 or len(h.placa.strip()) < 7 \
                         or len(h.color_primerio.strip()) < 4:
                     h.dato_icorrecto = True
+
+
     # Inmuelbes
     @api.onchange('inmueble_id')
     def _onchange_inmueble_id(self):
@@ -256,10 +273,13 @@ class act_controlador(act.Cabacera):
             veh = self.inmueble_id
             for i, h in enumerate(veh):
                 h.dato_icorrecto = False
-                if len(h.identificación.strip()) < 4 or len(h.caracteristicas_unicas.strip()) < 4 or len(h.pro_reg_municipio.strip()) < 4 \
+                if len(h.identificación.strip()) < 4 or len(h.caracteristicas_unicas.strip()) < 4 or len(
+                        h.pro_reg_municipio.strip()) < 4 \
                         or len(h.clave_catastral.strip()) < 3 or len(h.num_predio.strip()) < 2 or h.valor_avaluo < 1 \
-                        or len(h.anio_avaluo.strip()) < 4 or h.area_predio < 1 or h.area_contruccion < 1 or len(h.num_escritura.strip()) < 4:
+                        or len(h.anio_avaluo.strip()) < 4 or h.area_predio < 1 or h.area_contruccion < 1 or len(
+                    h.num_escritura.strip()) < 4:
                     h.dato_icorrecto = True
+
 
     @api.model
     def create(self, values):
@@ -304,6 +324,7 @@ class act_controlador(act.Cabacera):
                 res = self.ingreso_bienes(values, 'libros_colecciones_id')
                 return super(act.Cabacera, self).create(res)
 
+
     def ingreso_bienes(self, values, tipo_bien):
         bienes = values[tipo_bien]
         for i, b in enumerate(bienes):
@@ -314,6 +335,7 @@ class act_controlador(act.Cabacera):
                 values['codigo'] = compute_default_codigo(self, 5)
                 values[tipo_bien] = [bienes[-1]]
                 return values
+
 
     def validar_herencia(self, values):
         tipo = values['tipo_herencia']
@@ -400,6 +422,7 @@ class act_controlador(act.Cabacera):
             self.buscar_datos_erroneso(values['libros_colecciones_id'])
         elif not dup and tipo == '9':
             self.buscar_datos_erroneso(values['libros_colecciones_id'])
+
 
     def buscar_datos_erroneso(self, bienes):
         for b in bienes:
