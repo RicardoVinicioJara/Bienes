@@ -34,4 +34,6 @@
 "access_act_claserespaldo","act.ClaseRespaldo","model_act_claserespaldo","base.group_user",1,1,1,1
 "access_act_veh_vehiculostipo","act.veh.VehiculosTipo","model_act_veh_vehiculostipo","base.group_user",1,1,1,1
 "access_act_mue_material","act.mue.Material","model_act_mue_material","base.group_user",1,1,1,1
+"access_act_inm_material","act.inm.Material","model_act_inm_material","base.group_user",1,1,1,1
 "access_act_bos_tipocultivo","act.bos.TipoCultivo","model_act_bos_tipocultivo","base.group_user",1,1,1,1
+"access_act_importar","act.importar","model_act_importar","base.group_user",1,1,1,1

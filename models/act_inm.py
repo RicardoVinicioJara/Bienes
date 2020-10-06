@@ -7,7 +7,6 @@ from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError, Warning, DeferredException, UserError, MissingError
 
 
-
 def compute_default_codigo(self, tam):
     listado = self.env[self._name].search([])
     numero = str(int(listado[-1].codigo if listado else '0') + 1)
@@ -51,7 +50,7 @@ class Inmueble(models.Model):
     anio_avaluo = fields.Char('Año avalúo Municipal', required=True, help='Año avalúo Municipal', size=4)
     area_predio = fields.Float('Área del Predio m2', digits=(6, 2), required=True)
     area_contruccion = fields.Float('Área de Construcción m2', digist=(6, 2), required=True)
-    num_pisos = fields.Char('Número de pisos', default=1, required=True,  size=4)
+    num_pisos = fields.Char('Número de pisos', default=1, required=True, size=4)
     num_escritura = fields.Char('Número de escritura', required=True, help='Número de escritura')
     fecha_escritura = fields.Date('Fecha de la Escritura', required=False, help='Fecha de la Escritura')
     notari = fields.Char('Notaria', requiered=True, help='Notaria', size=4)
@@ -62,7 +61,19 @@ class Inmueble(models.Model):
     direccion_id = fields.Many2one('act.inm.direccion', string='Dirección', required=True,
                                    help='Dirección del inmueble ')
 
-    dato_icorrecto = fields.Boolean("Dato Icorrecto", default=False,required=True)
+    dato_icorrecto = fields.Boolean("Dato Icorrecto", default=False, required=True)
+
+    @api.onchange('fecha_duracion', 'fecha_contrato')
+    def _change_fecha_durecuion(self):
+        if self.fecha_duracion and self.fecha_contrato:
+            if self.fecha_contrato > self.fecha_duracion:
+                self.fecha_duracion = False
+                return {
+                    'warning': {
+                        'title': 'Fecha Icorrecta!',
+                        'message': 'La <b>Fecha: Tiempo de duración</b> no puede ser menor a la <b> Fecha Contrato</b>',
+                        'type': 'notification'}
+                }
 
 
 class Direccion(models.Model):

@@ -15,6 +15,7 @@ class act_controlador(act.Cabacera):
     def onchange_date(self):
         if self.fecha_comprobante:
             if self.fecha_ingreso < self.fecha_comprobante:
+                self.fecha_ingreso = date.today()
                 return {
                     'warning': {
                         'title': 'Fecha Icorrecta!',
@@ -22,7 +23,6 @@ class act_controlador(act.Cabacera):
                                    'Ingresara la fecha Actual',
                         'type': 'notification'}
                 }
-                self.fecha_ingreso = date.today()
 
     @api.onchange('tipo_herencia_item')
     def _change_herencia(self):
@@ -31,8 +31,6 @@ class act_controlador(act.Cabacera):
 
     @api.onchange('item_padre')
     def _change_item_padre(self):
-        self.valor_mostrar = 6
-        self.tipo_herencia = '9'
         a = self.item_padre
         if a:
             tipo = a.codigo
@@ -46,12 +44,17 @@ class act_controlador(act.Cabacera):
             self.item_hijo = False
             self.item_padre = a
             self.tipo_herencia = '1'
+            self.cantidad = 0
             self.compra_id = False
             self.producto_id = False
             self.certificado_id = False
 
     @api.onchange('item_hijo')
     def _change_item_hijo(self):
+        self.bienes_muebles_id, self.vehiculos_id, self.inmueble_id, self.animal_vivo_id, self.bosques_plantas_id, \
+        self.pinacoteca_id, self.escultura_id, self.arqueologia_id, self.libros_colecciones_id = False, False, False, \
+                                                                                                 False, False, False, \
+                                                                                                 False, False, False
         if self.item_hijo:
             codigo = self.item_hijo.codigo
 
@@ -82,7 +85,9 @@ class act_controlador(act.Cabacera):
             # Bienes
             else:
                 self.tipo_herencia = '1'
-
+            self.producto_id = False
+            self.certificado_id = False
+            self.cantidad = 0
             self.compra_id = False
             domain = [('certificado_ids.certificado_id.presupuesto_id.item_id.codigo', '=', codigo)]
             return {'domain': {'compra_id': domain}}
@@ -93,6 +98,7 @@ class act_controlador(act.Cabacera):
         if compra:
             self.producto_id = False
             self.certificado_id = False
+            self.cantidad = 0
             # hay de definir que tipo de comprobente
             self.tip_comprobante = 'F'
 
@@ -105,11 +111,6 @@ class act_controlador(act.Cabacera):
                 for it in l.producto_item_ids:
                     if it.codigo == self.item_hijo.codigo:
                         productos.append(l.codigo)
-            # Tengo a los productos
-            pro_db = self.env['act.cabacera'].search([('compra_id', '=', compra.id)]).producto_id
-            for pro in pro_db:
-                if pro.codigo in productos:
-                    productos.remove(pro.codigo)
 
             domain = [('codigo', 'in', productos)]
 
@@ -147,23 +148,46 @@ class act_controlador(act.Cabacera):
                 if l.producto_id.codigo == producto.codigo:
                     # Sacamos todo para los calculos
                     self.producto_costo = l.valor_total
-                    self.cantidad = l.cantidad
-                    self.forma_ingreso = 'M' if self.cantidad > 1 else 'I'
-
+                    self.cantidad_compra = l.cantidad
+                    com_db = self.env['act.cabacera'].search(
+                        [('compra_id', '=', compra.id), ('producto_id', '=', producto.id)])
+                    ingresado = 0
+                    for com in com_db:
+                        ingresado += com.cantidad
+                    self.cantidad_ingresar = self.cantidad_compra - ingresado
+                    self.cantidad = 0
                     # Valores Contables
                     self.valor_contable = self.producto_costo
                     self.valor_residual = self.valor_contable * 0.1
                     self.valor_libros = self.valor_contable - self.valor_dep_acumulada
 
     # Validaciones para la vista
-
     @api.onchange('bodega_id')
     def _change_bodega(self):
-        if self.bodega_id:
-            self.tipo_respaldo_id = False
+        self.tipo_respaldo_id = False
+        self.clase_respaldo_id = False
+        self.empleado_id = False
+
+    @api.onchange('cantidad')
+    def _change_cantidad(self):
+        self.bodega_id = False
+        if self.cantidad:
+            if 0 < self.cantidad > self.cantidad_ingresar:
+                self.cantidad = 0
+                mess = {
+                    'title': 'Cantidad Incorrecta!',
+                    'type': 'notification',
+                    'message': 'La cantidad debe ser mayor a <b>0</b> y menor a: <b>' + str(
+                        self.cantidad_ingresar) + '</b>'
+                }
+                return {'warning': mess}
+            else:
+                self.forma_ingreso = 'M' if self.cantidad_ingresar > 1 else 'I'
 
     @api.onchange('empleado_id')
     def _change_empleado(self):
+        self.valor_mostrar = 4
+        self.vida_util_id = False
         if self.empleado_id:
             if self.depreciacion == 'N':
                 self.valor_mostrar = 6
@@ -175,6 +199,14 @@ class act_controlador(act.Cabacera):
         if self.tip_comprobante:
             if self.tip_comprobante != 'O':
                 self.estado = 'B'
+
+    @api.onchange('clase_respaldo_id')
+    def _change_clase_respaldo(self):
+        self.empleado_id = False
+
+    @api.onchange('tipo_respaldo_id')
+    def _change_tipo_respaldo(self):
+        self.clase_respaldo_id = False
 
     @api.onchange('org_ingreso')
     def _change_org_ingreso(self):
@@ -201,7 +233,6 @@ class act_controlador(act.Cabacera):
             if self.cambiar_num_vida:
                 self.vida_anios = self.vida_util_id.adm_proy_prog
 
-
     @api.onchange('duplicacion_datos', 'bienes_muebles_id', 'vehiculos_id', 'inmueble_id', 'animal_vivo_id',
                   'bosques_plantas_id', 'pinacoteca_id', 'escultura_id', 'arqueologia_id', 'libros_colecciones_id')
     def _change_bienes_muebles(self):
@@ -224,7 +255,6 @@ class act_controlador(act.Cabacera):
         if self.tipo_herencia == '9':
             self.libros_colecciones_id = self.duplicacion_datos_val(self.libros_colecciones_id)
 
-
     def duplicacion_datos_val(self, bien):
         if self.duplicacion_datos:
             if len(bien) >= self.cantidad:
@@ -241,7 +271,6 @@ class act_controlador(act.Cabacera):
                 self.duplicacion_datos_catidad = False
                 return bien
 
-
     # Bienes Muebles
     @api.onchange('bienes_muebles_id')
     def _onchange_lis_muebles(self):
@@ -251,7 +280,6 @@ class act_controlador(act.Cabacera):
                 if len(m.marca.strip()) < 2 or len(m.modelo.strip()) < 2 or len(m.serie.strip()) < 4 \
                         or len(m.color.strip()) < 4:
                     m.dato_icorrecto = True
-
 
     # Vehiculos
     @api.onchange('vehiculos_id')
@@ -264,7 +292,6 @@ class act_controlador(act.Cabacera):
                         or len(h.n_motor.strip()) < 4 or len(h.n_chasis.strip()) < 4 or len(h.placa.strip()) < 7 \
                         or len(h.color_primerio.strip()) < 4:
                     h.dato_icorrecto = True
-
 
     # Inmuelbes
     @api.onchange('inmueble_id')
@@ -280,21 +307,22 @@ class act_controlador(act.Cabacera):
                     h.num_escritura.strip()) < 4:
                     h.dato_icorrecto = True
 
+    def write(self, values):
+        values.update({'duplicacion_datos_catidad': False})
+        return super(act.Cabacera, self).write(values)
 
     @api.model
     def create(self, values):
         self.validar_herencia(values)
-        if not values['duplicacion_datos']:
+        if values['cantidad'] == 1:
             return super(act.Cabacera, self).create(values)
         else:
-            cantidad = values['cantidad']
+            cantidad = values['cantidad_compra']
             values['valor_contable'] = values['valor_contable'] / cantidad
             values['valor_residual'] = values['valor_residual'] / cantidad
             values['valor_libros'] = values['valor_libros'] / cantidad
             # valor acomulado
-            values['cantidad'] = 1
             values['forma_ingreso'] = 'I'
-            values['duplicacion_datos'] = False
             tipo = values['tipo_herencia']
             if tipo == '1':
                 res = self.ingreso_bienes(values, 'bienes_muebles_id')
@@ -324,18 +352,32 @@ class act_controlador(act.Cabacera):
                 res = self.ingreso_bienes(values, 'libros_colecciones_id')
                 return super(act.Cabacera, self).create(res)
 
-
     def ingreso_bienes(self, values, tipo_bien):
         bienes = values[tipo_bien]
-        for i, b in enumerate(bienes):
-            values['codigo'] = compute_default_codigo(self, 5)
-            values[tipo_bien] = [b]
-            self.env['act.cabacera'].create(values)
-            if i == (len(bienes) - 2):
+        if not values['duplicacion_datos']:
+            can = values['cantidad']
+            for n in range(can):
+                values['duplicacion_datos'] = False
+                values['duplicacion_datos_catidad'] = False
+                values['cantidad'] = 1
                 values['codigo'] = compute_default_codigo(self, 5)
-                values[tipo_bien] = [bienes[-1]]
-                return values
-
+                self.env['act.cabacera'].create(values)
+                if n == can - 2:
+                    values['codigo'] = compute_default_codigo(self, 5)
+                    values[tipo_bien] = [bienes[-1]]
+                    return values
+        else:
+            for i, b in enumerate(bienes):
+                values['duplicacion_datos'] = False
+                values['duplicacion_datos_catidad'] = False
+                values['cantidad'] = 1
+                values['codigo'] = compute_default_codigo(self, 5)
+                values[tipo_bien] = [b]
+                self.env['act.cabacera'].create(values)
+                if i == (len(bienes) - 2):
+                    values['codigo'] = compute_default_codigo(self, 5)
+                    values[tipo_bien] = [bienes[-1]]
+                    return values
 
     def validar_herencia(self, values):
         tipo = values['tipo_herencia']
@@ -358,73 +400,81 @@ class act_controlador(act.Cabacera):
         if tipo == '9' and values.get('libros_colecciones_id') == None:
             raise ValidationError("Necesita ingresar Libros y Colecciones")
 
+        self.validar_numer_error(values, False)
+
+    def buscar_datos_erroneso(self, bienes, editar):
+        if not editar:
+            for b in bienes:
+                if b[2]['dato_icorrecto']:
+                    raise ValidationError("Corregir los Bienes Marcados en ROJO")
+        else:
+            for b in bienes:
+                if b.dato_icorrecto:
+                    raise ValidationError("Corregir los Bienes Marcados en ROJO")
+
+    def validar_numer_error(self, values, editar):
+        tipo = values['tipo_herencia']
         dup = values['duplicacion_datos']
         can = values['cantidad']
         if dup and tipo == '1' and len(values['bienes_muebles_id']) < can:
             raise ValidationError("Necesita ingresar " + str(can) + " Bienes muebles")
         elif dup and tipo == '1' and len(values['bienes_muebles_id']) >= can:
-            self.buscar_datos_erroneso(values['bienes_muebles_id'])
+            self.buscar_datos_erroneso(values['bienes_muebles_id'], editar)
         elif not dup and tipo == '1':
-            self.buscar_datos_erroneso(values['bienes_muebles_id'])
+            self.buscar_datos_erroneso(values['bienes_muebles_id'], editar)
 
         if dup and tipo == '2' and len(values['vehiculos_id']) < can:
             raise ValidationError("Necesita ingresar " + str(can) + " Vehículo")
         elif dup and tipo == '2' and len(values['vehiculos_id']) >= can:
-            self.buscar_datos_erroneso(values['vehiculos_id'])
+            self.buscar_datos_erroneso(values['vehiculos_id'], editar)
         elif not dup and tipo == '2':
-            self.buscar_datos_erroneso(values['vehiculos_id'])
+            self.buscar_datos_erroneso(values['vehiculos_id'], editar)
 
         if dup and tipo == '3' and len(values['inmueble_id']) < can:
             raise ValidationError("Necesita ingresar " + str(can) + " Inmuebles")
         elif dup and tipo == '3' and len(values['inmueble_id']) >= can:
-            self.buscar_datos_erroneso(values['inmueble_id'])
+            self.buscar_datos_erroneso(values['inmueble_id'], editar)
         elif not dup and tipo == '3':
-            self.buscar_datos_erroneso(values['inmueble_id'])
+            self.buscar_datos_erroneso(values['inmueble_id'], editar)
 
         if dup and tipo == '4' and len(values['animal_vivo_id']) < can:
             raise ValidationError("Necesita ingresar " + str(can) + " Animales Vivos")
         elif dup and tipo == '4' and len(values['animal_vivo_id']) >= can:
-            self.buscar_datos_erroneso(values['animal_vivo_id'])
+            self.buscar_datos_erroneso(values['animal_vivo_id'], editar)
         elif not dup and tipo == '4':
-            self.buscar_datos_erroneso(values['animal_vivo_id'])
+            self.buscar_datos_erroneso(values['animal_vivo_id'], editar)
 
         if dup and tipo == '5' and len(values['bosques_plantas_id']) < can:
             raise ValidationError("Necesita ingresar " + str(can) + " Bosques Plantas")
         elif dup and tipo == '5' and len(values['bosques_plantas_id']) >= can:
-            self.buscar_datos_erroneso(values['bosques_plantas_id'])
+            self.buscar_datos_erroneso(values['bosques_plantas_id'], editar)
         elif not dup and tipo == '5':
-            self.buscar_datos_erroneso(values['bosques_plantas_id'])
+            self.buscar_datos_erroneso(values['bosques_plantas_id'], editar)
 
         if dup and tipo == '6' and len(values['pinacoteca_id']) < can:
             raise ValidationError("Necesita ingresar " + str(can) + " Pinacotecas")
         elif dup and tipo == '6' and len(values['pinacoteca_id']) >= can:
-            self.buscar_datos_erroneso(values['pinacoteca_id'])
+            self.buscar_datos_erroneso(values['pinacoteca_id'], editar)
         elif not dup and tipo == '6':
-            self.buscar_datos_erroneso(values['pinacoteca_id'])
+            self.buscar_datos_erroneso(values['pinacoteca_id'], editar)
 
         if dup and tipo == '7' and len(values['escultura_id']) < can:
             raise ValidationError("Necesita ingresar " + str(can) + " Esculturas")
         elif dup and tipo == '7' and len(values['escultura_id']) >= can:
-            self.buscar_datos_erroneso(values['escultura_id'])
+            self.buscar_datos_erroneso(values['escultura_id'], editar)
         elif not dup and tipo == '7':
-            self.buscar_datos_erroneso(values['escultura_id'])
+            self.buscar_datos_erroneso(values['escultura_id'], editar)
 
         if dup and tipo == '8' and len(values['arqueologia_id']) < can:
             raise ValidationError("Necesita ingresar " + str(can) + " Arqueologias")
         elif dup and tipo == '8' and len(values['arqueologia_id']) >= can:
-            self.buscar_datos_erroneso(values['arqueologia_id'])
+            self.buscar_datos_erroneso(values['arqueologia_id'], editar)
         elif not dup and tipo == '8':
-            self.buscar_datos_erroneso(values['arqueologia_id'])
+            self.buscar_datos_erroneso(values['arqueologia_id'], editar)
 
         if dup and tipo == '9' and len(values['libros_colecciones_id']) < can:
             raise ValidationError("Necesita ingresar " + str(can) + " Libros y Colecciones")
         elif dup and tipo == '9' and len(values['libros_colecciones_id']) >= can:
-            self.buscar_datos_erroneso(values['libros_colecciones_id'])
+            self.buscar_datos_erroneso(values['libros_colecciones_id'], editar)
         elif not dup and tipo == '9':
-            self.buscar_datos_erroneso(values['libros_colecciones_id'])
-
-
-    def buscar_datos_erroneso(self, bienes):
-        for b in bienes:
-            if b[2]['dato_icorrecto']:
-                raise ValidationError("Corregir los Bienes Marcados en ROJO")
+            self.buscar_datos_erroneso(values['libros_colecciones_id'], editar)

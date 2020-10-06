@@ -20,11 +20,11 @@
                         <field name="sexo" select="2"/>
                     </group>
                     <group colspan="2">
-                        <field name="edad" select="0"/>
+                        <field name="peso" select="0"/>
                         <field name="num_arete" select="0"/>
                         <field name="codigo" invisible="1" select="1"/>
-                        <field name="fecha_nacimineto" select="0" options="{'datepicker':{'maxDate': 'now'}}"/>
-                        <field name="peso" select="0"/>
+                        <field name="fecha_nacimineto" attrs="{'required': True}" select="0" options="{'datepicker':{'maxDate': 'now'}}"/>
+                        <field name="edad" select="0"  attrs="{'invisible': [('fecha_nacimineto', '=', False)]}"/>
                     </group>
                 </group>
             </form>

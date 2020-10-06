@@ -2,8 +2,11 @@
 ##############################################################################
 #   SICAF - Copyright  2019
 ##############################################################################
-from email.policy import default
 
+import base64
+from xml import etree
+
+from pandas import *
 from odoo import api, fields, models
 
 
@@ -27,7 +30,6 @@ class Bodega(models.Model):
     Denominacion = fields.Char('Denominacion', required=True, help='Denominacion')
     uni_operativa_id = fields.Many2one('pre.centrogestor', string='Centro Gestor', required=True, help='Centro Gestor')
 
-    # @api.multi
     def name_get(self):
         result = []
         for record in self:
@@ -41,7 +43,6 @@ class Bodega(models.Model):
         codigo = ''
         if centrogestor:
             codigo = centrogestor.codigo + self.codigo
-        # self.noBodega = codigo
 
     @api.onchange('Denominacion')
     def _description_mayusculas(self):
@@ -80,9 +81,8 @@ class Cabacera(models.Model):
                                  readonly=False, domain=[('codigo', 'in', ('53.14', '53.15', '63.14', '63.15', '73.14',
                                                                            '73.15', '84.01', '84.02', '84.03',
                                                                            '84.05'))],
-                                 help='Item  Categoria', default=lambda self: self.item_hijo.item_padre_id == '5314')
-    item_hijo = fields.Many2one('ges.cat.cue.item', string='Item Sub Categoria', required=True,
-                                help='Item sub categoria')
+                                 default=lambda self: self.item_hijo.item_padre_id == '5314')
+    item_hijo = fields.Many2one('ges.cat.cue.item', string='Item Sub Categoria', required=True)
     tipo_activo = fields.Selection([('BLD', 'Bienes de larga duracion'), ('BCA', 'Control Administrativo')],
                                    string='Tipo Activo', required=True, readonly=True,
                                    help='Activo Fijo (BLD) o Control Administrativo (BCA)')
@@ -105,10 +105,9 @@ class Cabacera(models.Model):
 
     compra_id = fields.Many2one('com.orden', string='Compra del Bien', required=True)
 
-
     certificado_id = fields.Many2one('pre.certificado', string="Certificado", required=True, default=False)
 
-    partida_presupuestaria = fields.Char(related='certificado_id.presupuesto_id.partida_id.codigo',
+    partida_presupuestaria = fields.Char(related='certificado_id.presupuesto_id.codigo_completo',
                                          string='Partidas Presupuestarias', store=False, readonly=True)
 
     item_prespuestario = fields.Char(related='certificado_id.presupuesto_id.item_id.codigo',
@@ -127,7 +126,10 @@ class Cabacera(models.Model):
     descripcion = fields.Char('Descripción - Características del Bien', required=False,
                               help='Descripción  - Características del Bien')
 
-    cantidad = fields.Integer('Cantidad', help='Catidad de producto', store=True, default=3)
+    cantidad_compra = fields.Integer('Cantidad en Compra', readonly=False)
+    cantidad_ingresar = fields.Integer('Cantidad por Ingresar', readonly=False)
+    cantidad = fields.Integer('Cantidad a Ingresar', help='Catidad de producto', store=True)
+
     org_ingreso = fields.Selection([('M', 'Matriz'), ('C', 'Compra'), ('D', 'Donacion')], string='Origen del Ingreso',
                                    required=True, help='Origen del Ingreso', default='C', readonly=True)
     tipo_respaldo_id = fields.Many2one('act.tiporespaldo', string='Tipo Respaldo', required=True,
@@ -161,7 +163,7 @@ class Cabacera(models.Model):
     valor_libros = fields.Monetary('Valor en libros', default=0.0, required=True, help='Valor en libros')
     valor_dep_acumulada = fields.Monetary('Valor Depreciación Acumulada', default=0.0, required=True,
                                           help='Valor Depreciación Acumulada')
-    fecha_u_depreciacion = fields.Date('Fecha de la última depreciación', default=fields.Date.today )
+    fecha_u_depreciacion = fields.Date('Fecha de la última depreciación', default=fields.Date.today)
 
     vida_util_id = fields.Many2one('act.vidautil', string='Vida Util', help='Vida Util', required=False)
     vida_anios = fields.Char('Números de años', help='Años de Vida Util', readonly=True)
@@ -191,9 +193,8 @@ class Cabacera(models.Model):
                                           string="Seleccionar Tipo Bien a Ingresar",
                                           store=False)
 
-    duplicacion_datos = fields.Boolean('Los Bienes tiene atributos diferentes', default=False, store=True)
-    duplicacion_datos_catidad = fields.Boolean(default=False,
-                                               store=True)
+    duplicacion_datos = fields.Boolean('Los Bienes tiene atributos diferentes', default=False)
+    duplicacion_datos_catidad = fields.Boolean(default=False)
 
     tipo_herencia = fields.Selection(
         [('1', 'Bienes Muebles'), ('2', 'Vehiculos'), ('3', 'Inmueble'), ('4', 'Anivales Vivos'), ('5', 'Bosques'),
@@ -202,6 +203,21 @@ class Cabacera(models.Model):
 
     valor_mostrar = fields.Integer('Variable a mostrar', store=True, default=1)
 
+    @api.model
+    def fields_view_get(self, view_id=None, view_type='tree', toolbar=False, submenu=False):
+        res = super(Cabacera, self).fields_view_get(view_id=view_id, view_type=view_type, toolbar=toolbar,
+                                                                 submenu=submenu)
+        default_type = self.env.context.get('cantidad', False)
+        if default_type:
+            doc = etree.XML(res['arch'])
+            for t in doc.xpath("//" + view_type):
+                t.attrib['create'] = '1'
+            res['arch'] = etree.tostring(doc)
+        return res
+
+    def hola(self,p):
+        print("hola", " >>>>>>>>>>>>>", p)
+
     def name_get(self):
         result = []
         diccionario = dict(self._fields['tipo_herencia'].selection)
@@ -209,10 +225,6 @@ class Cabacera(models.Model):
             result.append((record.id, record.codigo + " " + diccionario[
                 str(record.tipo_herencia)] + " | " + record.producto_des + " | " + record.empleado_apellido))
         return result
-
-
-
-
 
 
 class TipoIngreso(models.Model):
@@ -261,3 +273,33 @@ class ClaseRespaldo(models.Model):
         for record in self:
             result.append((record.id, record.tipo + '| ' + record.descripcion))
         return result
+
+
+class Importar(models.Model):
+    _name = 'act.importar'
+    _description = 'Activos - Bienes - Importar'
+    tipo_ingresar = fields.Selection(
+        [('1', 'Bienes Muebles'), ('2', 'Vehiculos'), ('3', 'Inmueble'), ('4', 'Anivales Vivos'), ('5', 'Bosques'),
+         ('6', 'Pinacoteca'), ('7', 'Escultura'), ('8', 'Arqueologia'), ('9', 'Libros')],
+        string="Bien Ingresado", required=True)
+
+    archivo = fields.Binary('CARGAR CSV', store=True)
+
+    @api.onchange('archivo')
+    def _onchange_archivo(self):
+        if self.archivo:
+            f = open("mca_temp.xlsx", "wb")
+            f.write(base64.decodestring(self.archivo))
+            xls = ExcelFile('mca_temp.xlsx')
+            df = xls.parse(xls.sheet_names[0])
+            f.close()
+            return {
+                'name': 'Cabacera',
+                'view_type': 'tree',
+                'view_mode': 'tree',
+                'view_id': 'view_act_cabacera_tree',
+                'res_model': 'act.cabacera',
+                'context': "{}",
+                'type': 'ir.ui.view',
+                'target': 'new',
+            }

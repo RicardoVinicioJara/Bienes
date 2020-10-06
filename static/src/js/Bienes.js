@@ -1,12 +1,29 @@
+// var se
+// var rpc
 // odoo.define('act.cabacera', function (require) {
 //     "use strict";
-//
-//     console.log('Hola se sipone que lees ')
 //     $(document).ready(function () {
 //         console.log("ya esta el docuemto cargado")
 //         mensaje("Si se carga")
 //     });
+//     se = require("web.session");
+//     rpc = require("web.rpc");
+//
 // });
+
+function btn() {
+    $("#my_btn").click(function () {
+        llamar();
+    });
+
+    function llamar() {
+        rpc.query({
+            model: 'act.cabacera',
+            method: 'hola',
+            args: [[se.uid], {'id': se.uid}],
+        });
+    }
+}
 
 function mensaje(txt) {
     Toastify({
@@ -459,7 +476,9 @@ function validarMayorCero(_nombre, descripcion) {
         return "   * " + descripcion + " debe ser mayor a cero <br> "
     }
     return ""
-}function validarMayorMonetary(_nombre, descripcion) {
+}
+
+function validarMayorMonetary(_nombre, descripcion) {
     _nombre = "[name='" + _nombre + "'] .o_input"
     if (parseFloat($(_nombre).val().toString()) < 1) {
         return "   * " + descripcion + " debe ser mayor a cero <br> "

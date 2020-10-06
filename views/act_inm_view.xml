@@ -32,7 +32,7 @@
                         <field name="notari" select="0"/>
                         <field name="beneficiario" select="0"/>
                         <field name="fecha_contrato" options="{'datepicker':{'maxDate': 'now'}}" select="0"/>
-                        <field name="fecha_duracion" options="{'datepicker':{'maxDate': 'now'}}" select="0"/>
+                        <field name="fecha_duracion" attrs="{'invisible':[('fecha_contrato','=',False)]}" select="0"/>
                         <field name="canon_actua" select="0"/>
                         <field name="codigo" invisible="1"/>
                         <field name="dato_icorrecto" invisible="1" attrs="{'required': True}"  force_save="1" />

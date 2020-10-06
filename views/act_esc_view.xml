@@ -14,9 +14,9 @@
             <form string="escultura">
                 <group col="4" colspan="2">
                     <group colspan="2">
-                        <field name="marca"   select="0" />
-                        <field name="caratesiticas_unicas" select="0"/>
                         <field name="serie" select="0"/>
+                        <field name="caratesiticas_unicas" select="0"/>
+                        <field name="marca"   select="0" />
                         <field name="registro" select="2"/>
                         <field name="titulo" select="0"/>
                         <field name="epoca_id" select="0"/>

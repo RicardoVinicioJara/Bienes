@@ -5,13 +5,14 @@
     <template id="assets_backend" name="helpdesk assets" inherit_id="web.assets_backend">
         <xpath expr='.' position="inside">
             <link rel="stylesheet" href="/Bienes/static/src/less/toastify.css"/>
-            <script type="text/javascript" src="/Bienes/static/src/js/toastify.js"></script>
-            <script type="text/javascript" src="/Bienes/static/src/js/Bienes.js"></script>
+            <script type="text/javascript" src="/Bienes/static/src/js/toastify.js"/>
+            <script type="text/javascript" src="/Bienes/static/src/js/Bienes.js"/>
         </xpath>
     </template>
 
     <!-- MENÚ SECUNDARIO -->
     <menuitem name="MENU BIENES" id="men_sec_act" parent="men_pri_act"/>
+    <menuitem name="IMPORTAR" id="men_sec_imp" parent="men_pri_act"/>
 
 
     <!-- VISTA FORM: BODEGA -->
@@ -192,12 +193,12 @@
                             <div class="row justify-content-center">
                                 <div class="col-5 text-center">
                                     <field name="codigo" select="0" colspan="4"/>
-                                    <div class="dropdown-divider"></div>
+                                    <div class="dropdown-divider"/>
                                     <field name="item_padre" style="width: 100%"
                                            options="{'no_quick_create':True, 'no_create_edit':True, 'no_open': True}"
                                            force_save="1" select="1"
                                            placeholder="Item  Categoria"/>
-                                    <div class="dropdown-divider"></div>
+                                    <div class="dropdown-divider"/>
                                     <field name="item_hijo" domain="[('item_padre_id', '=', item_padre)]"
                                            style="width: 100%"
                                            options="{'no_quick_create':True, 'no_create_edit':True, 'no_open': True}"
@@ -226,7 +227,16 @@
 
                                         <field name="producto_id"
                                                options="{'no_quick_create':True,'no_create_edit':True,'no_open': True}"
-                                               attrs="{'invisible': [('compra_id', '=', False)]}"/>
+                                               attrs="{'invisible': [('compra_id', '=', False)]}" />
+                                        <field name="cantidad_compra" select="0"
+                                               attrs="{'invisible': [('producto_id', '=', False)], 'readonly':True}"
+                                               force_save="1" />
+                                        <field name="cantidad_ingresar" select="0"
+                                               attrs="{'invisible': [('producto_id', '=', False)], 'readonly':True}" force_save="1"/>
+                                        <field name="cantidad" select="0"
+                                               attrs="{'invisible': ['|',('producto_id', '=', False)]}"
+                                               decoration-danger="cantidad &lt; 1"
+                                               force_save="1"/>
 
                                         <field name="certificado_id"
                                                options="{'no_quick_create':True,'no_create_edit':True,'no_open': True}"
@@ -236,11 +246,11 @@
                             </div>
                         </div>
                     </div>
-                    <center attrs="{'invisible': [('producto_id', '=', False)]}">
-                        <br></br>
+                    <center attrs="{'invisible': [('cantidad', '&lt;', 1)]}">
+                        <br/>
                         <h3 class="o_horizontal_separator">INFORMACIÓN BÁSICA DEL BIEN</h3>
                     </center>
-                    <div class="card" attrs="{'invisible': [('producto_id', '=', False)]}">
+                    <div class="card" attrs="{'invisible': [('cantidad', '&lt;', 1)]}">
                         <div class="card-header o_horizontal_separator">
                             Bodega
                         </div>
@@ -278,10 +288,6 @@
                                                attrs="{'invisible': [('fecha_ingreso', '=', False)]}"/>
                                         <field name="descripcion"
                                                attrs="{'invisible': [('fecha_ingreso', '=', False)]}"/>
-                                        <field name="cantidad" select="0"
-                                               attrs="{'invisible': [('fecha_ingreso', '=', False)], 'readonly':True}"
-                                               force_save="1"/>
-
                                         <field name="org_ingreso" select="0"
                                                attrs="{'invisible': [('fecha_ingreso', '=', False)]}"/>
                                         <field name="tipo_respaldo_id" select="0"
@@ -382,16 +388,16 @@
                                 <div class="col-10" style="padding: 0">
                                     <div class="row justify-content-center">
                                         <div class="col-6" style="padding: 0">
-                                            <div class="dropdown-divider"></div>
+                                            <div class="dropdown-divider"/>
                                             <group col="2" colspan="4"
                                                    attrs="{'invisible': [('depreciacion', '=', 'N')]}">
                                                 <field name="vida_util_id" force_save="1"/>
                                                 <field name="cambiar_num_vida"
-                                                       attrs="{'invisible': [('vida_anios', '!=', 'UTPE*')]}"></field>
+                                                       attrs="{'invisible': [('vida_anios', '!=', 'UTPE*')]}"/>
                                             </group>
                                         </div>
                                         <div class="col-6" style="padding: 0">
-                                            <div class="dropdown-divider"></div>
+                                            <div class="dropdown-divider"/>
                                             <group col="2" colspan="4"
                                                    attrs="{'invisible': [('depreciacion', '=', 'N')]}">
                                                 <field name="vida_anios" select="0" force_save="1"/>
@@ -405,7 +411,8 @@
                                 <div class="col-7" style="padding: 0">
                                     <p class="text-danger"
                                        attrs="{'invisible': [('duplicacion_datos', '=', False)]}">
-                                        Estos valores seran divididos por el numero de bienes ingresados</p>
+                                        Estos valores seran divididos por el numero de bienes ingresados
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -416,10 +423,10 @@
                             <div class="row justify-content-center" style="margin-bottom: -2%; margin-top: -2%;">
                                 <div class="col-7">
                                     <group col="1" colspan="4">
-                                        <field name="tipo_herencia" invisible="1" select="0"/>
+                                        <field name="tipo_herencia" invisible="1" select="0" force_save="1"/>
                                         <field name="duplicacion_datos_catidad" invisible="1" select="0"/>
                                         <field name="duplicacion_datos"
-                                               attrs="{'invisible': [('cantidad', '&lt;', 2)]}" force_save="1"></field>
+                                               attrs="{'invisible': [('cantidad', '&lt;', 2)]}"/>
                                     </group>
                                 </div>
                             </div>
@@ -490,13 +497,19 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree string="cabacera">
-                <field name="codigo"/>
+                <field name="tipo_herencia"/>
                 <field name="item_hijo"/>
+                <field name="codigo"/>
                 <field name="bodega_id"/>
+                <field name="tipo_activo"/>
+                <field name="fecha_ingreso"/>
+                <field name="forma_ingreso"/>
                 <field name="compra_id"/>
                 <field name="producto_id"/>
+                <field name="cantidad"/>
+                <field name="empleado_id"/>
+                <field name="depreciacion"/>
                 <field name="observaciones"/>
-                <field name="tipo_herencia"/>
             </tree>
         </field>
     </record>
@@ -732,4 +745,54 @@
     <!-- MENÚ SECUNDARIO: CLASERESPALDO -->
     <menuitem name="CLASE RESPALDO" id="menu_act_claserespaldo" action="action_act_claserespaldo" parent="men_sec_act"/>
 
+
+    <!-- VISTA FORM: CULTURA -->
+    <record model="ir.ui.view" id="view_act_importar_form">
+        <field name="name">importar.form</field>
+        <field name="model">act.importar</field>
+        <field name="arch" type="xml">
+            <form string="cultura">
+                <div class="row justify-content-center">
+                    <div class="card text-center  w-50">
+                        <div class="card-header">
+                            <h1 class="p-3 mb-2 bg-primary text-white">CARGAR MATRICES DE CARGA INICIAL</h1>
+                        </div>
+                        <div class="card-body">
+                            <div class="card text-white justify-content-center">
+                                <div class="row justify-content-center">
+                                    <div class="col-6">
+                                        <h5 class="card-title text-dark">SELECCIONAR TIPO A INGRESAR</h5>
+                                        <field name="tipo_ingresar" colspan="4" nolabel="1"/>
+                                    </div>
+                                    <div class="col-7">
+                                        <group attrs="{'invisible': [('tipo_ingresar', '=', False)]}">
+                                            <div class="row  justify-content-center">
+                                                <h5 class="col-8 card-title text-dark">SELECCIONAR DOCUMENTO DE EXCEL
+                                                </h5>
+                                                <div class="col-5">
+                                                    <field name="archivo" colspan="4" nolabel="1"/>
+                                                </div>
+                                            </div>
+                                        </group>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </field>
+    </record>
+    <!-- FIN VISTA FORM: CULTURA -->
+
+    <!-- MODELO: IMPORTAR -->
+    <record model="ir.actions.act_window" id="action_act_importar">
+        <field name="name">IMPORTAR</field>
+        <field name="res_model">act.importar</field>
+        <field name="view_mode">form</field>
+    </record>
+    <!-- FIN MODELO: IMPORTAR -->
+
+    <!-- MENÚ SECUNDARIO: IMPORTAR -->
+    <menuitem name="IMPORTAR" id="menu_act_importar" action="action_act_importar" parent="men_pri_act"/>
 </odoo>

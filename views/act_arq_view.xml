@@ -14,9 +14,9 @@
             <form string="arqueologia">
                 <group col="4" colspan="2">
                     <group colspan="2">
-                        <field name="marca" select="0"/>
-                        <field name="caratesiticas_unicas" select="0"/>
                         <field name="serie" select="0"/>
+                        <field name="caratesiticas_unicas" select="0"/>
+                        <field name="marca" select="0"/>
                         <field name="nombre" select="2"/>
                         <field name="ubicacion" select="0"/>
                         <field name="precedencia" select="0"/>
